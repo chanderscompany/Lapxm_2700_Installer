@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Lapxm_2700_Installer", "Lapxm_2700_Installer\Lapxm_2700_Installer.vdproj", "{624A255B-03C9-4625-AF6C-27E3DF5E7276}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{624A255B-03C9-4625-AF6C-27E3DF5E7276}.Debug|Default.ActiveCfg = Debug
+		{624A255B-03C9-4625-AF6C-27E3DF5E7276}.Debug|Default.Build.0 = Debug
+		{624A255B-03C9-4625-AF6C-27E3DF5E7276}.Release|Default.ActiveCfg = Release
+		{624A255B-03C9-4625-AF6C-27E3DF5E7276}.Release|Default.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F8105E15-908E-46E0-A527-00AE79533538}
+	EndGlobalSection
+EndGlobal

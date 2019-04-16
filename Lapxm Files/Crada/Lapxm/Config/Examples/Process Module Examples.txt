@@ -1,0 +1,1154 @@
+// Process Module Examples.txt
+// LAP-XM® 2.6.0.0
+// 29May12 CC, JWN, RHL
+//
+// ******************************************************************
+// ******************************************************************
+// 
+// The following are examples of module sections for use in the 
+// [PROCESSES] section of a *.cfg file.
+//
+// Please refer to the LAP-XM® Software Manual, Section 4.3.5 and 4.3.6,
+// for information on how to set up the [PROCESSES] section, and a
+// detailed description of the parameters. Section 4.2 describes
+// the configuration file language syntax.
+//
+// Note that for system configurations using the baseband sampled
+// receiver, the spectral processing, ground clutter reduction and 
+// moments calculation is normally performed in the ISA DSP processor.
+// The Lehmann-Teschke Intermittent Clutter Reduction Module, 
+// Wavelet Time-series Processing Module, Spectral Processing and
+// Averaging Module, Ground Clutter Interference Reduction Module,
+// Moments Module, and Multiple Peak Moments Module in the
+// [PROCESSES] section of the configuration file should not be
+// used.
+//
+// ******************************************************************
+// ******************************************************************
+
+
+// 1 ________________________________________________________________
+// ******************************************************************
+// Dwell Engine Module - Acquires data through the radar hardware.
+// This should be the first module in the [PROCESSES] section.
+//
+// The first example is intended for systems with digital IF.
+// The second example is intended for systems with baseband sampled
+// receiver (ISA cards).
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.3.5.1.
+// ******************************************************************
+
+// For digital IF systems.
+
+  [TsWA, TsWB, TsRASS] = DwellEngine(NULL)
+  {
+    sOLEID = 'LAPXM.DwellEngine.1';
+  };
+
+// For analog IF systems.
+
+  [TsWA,SpecWA,MomWA,TsWB,SpecWB,MomWB,TsRASS,SpecRASS,MomRASS] = DwellEngine(NULL)
+  {
+    sOLEID = 'LAPXM.DwellEngine.1';
+  };
+
+// Optional parameters to read in historic data on the start of data acquisition
+// with example values
+
+  [TsWA, SpecWA, MomWA, TsWB, SpecWB, MomWB, TsRASS, SpecRASS, MomRASS, TsWA_H, SpecWA_H, MomWA_H, TsWB_H, SpecWB_H, MomWB_H, TsRASS_H, SpecRASS_H, MomRASS_H] = DwellEngine(NULL)
+    iHistory_Enable               = 1;
+    sHistory_DataPath             = 'D:\Lapxmdata\SpecMom';
+    iHistory_Minutes              = 1440;
+    iHistory_ProcessSpeedSec      = 0;                             
+    iHistory_ProcessSpeedMilliSec = 0;
+    iHistory_OutputTimeSeries     = 1;
+    iHistory_OutputSpectra        = 1;
+    iHistory_OutputMoments        = 1;
+    sHistory_SpeedControl         = 'SpeedControl';            
+
+
+
+// 2 ________________________________________________________________
+// ******************************************************************
+// Lehmann-Teschke Intermittent Clutter Reduction Module - Applies
+// the Lehmann-Teschke algorithm to reduce effects of intermittent
+// clutter.
+//
+// This module is not used for systems with baseband sampled receiver
+// (ISA cards).
+//
+// The Lehmann-Teschke intermittent clutter reduction algorithm is
+// computationally intensive. The period required for completion is
+// dependent upon the speed of the host processor and number of range
+// gates to which the algorithm is applied. To avoid exceeding the
+// limit of the data queue in LAP-XM, dwell periods should be longer
+// than the processing period for the module. Consequently, dwell
+// periods of 1 minute or longer are recommended when using this module.
+//
+// This module must follow the dwell engine module in the [PROCESSES]
+// section. Please refer to the LAP-XM® Software Manual, Section 4.3.5.2.
+// ******************************************************************
+
+  [TsWA_G, TsWB_G] = Gabor(NULL, {TsWA, TsWB})
+  {
+    iEnable               = {0, 0};  
+    iRedundancy           = {4, 4};
+    fClutterHeightKm      = {2.0, 2.0};
+    fWindowWidth          = {1.0, 1.0};
+    sOLEID                = 'Lapxm.Gabor.1';
+  };
+
+// Optional parameters with default values.
+
+    iEnableFiltering      = 1;
+    iDefineDiscretization = 0;
+    iTimeDiscretization   = {128, 128};
+    iFreqDiscretization   = {128, 128};
+    fPctSuspectThreshold  = {60.0, 60.0};
+    sVarianceEstimator    = {'standard', 'standard'};
+    sWindowType           = {'gauss', 'gauss'};
+
+// Optional parameters to change the fPctSuspectThreshold value
+// according to the day number in the year and time of day with
+// example values
+
+    iParamSwitchEnable               = 1;
+    iParamSwitchStartDatesDOY        = {91, 244};
+    iParamSwitchStopDatesDOY         = {151, 304};
+    iParamSwitchStartTimesMinutesUTC = {180, 420};
+    iParamSwitchStopTimesMinutesUTC  = {300, 840};
+    fParamSwitchPctSuspectThreshold  = {10.0, 10.0};
+    iDebug                           = 0;
+
+// 3 ________________________________________________________________
+// ******************************************************************
+// Wavelet Time-series Processing Module - Applies wavelet time-series
+// processing to reduce the effects of stationary, periodic, and
+// intermittent clutter. It should not be used for RASS.
+//
+// This module is not used for systems with baseband sampled receiver
+// (ISA cards).
+//
+// This module must follow the dwell engine module in the [PROCESSES]
+// section. Please refer to the LAP-XM® Software Manual, Section 4.3.5.3.
+// ******************************************************************
+
+  [TsWA_Wave, TsWB_Wave] = Wavelet(NULL, {TsWA, TsWB})
+  {
+    iDaubClip      = {1, 1};
+    iDeSpike       = {1, 1};
+    iHarmonicSub   = {0, 0};
+    sOLEID         = 'Lapxm.Wavelet.1';
+  };
+
+// Optional parameters with default values.
+
+    fThresholdRatio_DaubClip      = {0.3, 0.3};
+    iNumberOfSegments_DaubClip    = {4, 4};
+    fThresholdRatio_DeSpike       = {0.3, 0.3};
+    iMinThresholdLevel_Harmonic   = {6, 6};
+    iSymmetricThreshold_Harmonic  = {0, 0};
+    iThresholdMultiplier_Harmonic = {4, 4};
+
+
+// 4 ________________________________________________________________
+// ******************************************************************
+// Spectral Processing and Averaging Module - Processes time-series
+// data to optionally suppress DC, apply FFT, optionally filter
+// intermittent clutter, and average spectral data. 
+//
+// This module is not used for systems with baseband sampled receiver
+// (ISA cards).
+//
+// This module must follow the dwell engine and/or wavelet modules in
+// the [PROCESSES] section. Please refer to the LAP-XM® Software
+// Manual, Section 4.3.5.4.
+// ******************************************************************
+
+  [SpecWA, SpecWB, SpecRASS] = Spectra(NULL, {TsWA, TsWB, TsRASS})
+  {
+    iDCFilter   = {1, 1, 1};
+    iICRA       = {1, 1, 0};
+    iOverlap    = {1, 1, 0};
+    sOLEID      = 'Lapxm.Spectra.1';
+  };
+
+// Optional parameters with default values.
+
+    iWindowType  = {1, 1, 1};
+    fAlpha       = {0.0, 0.0, 0.0};
+    fBeta        = {0.0, 0.0, 0.0};
+
+
+// 5 ________________________________________________________________
+// ******************************************************************
+// Ground Clutter Interference Reduction Module - Reduces stationary
+// ground clutter interference from spectral data.
+// 
+// This module is not used for systems with baseband sampled receiver
+// (ISA cards).
+//
+// This module must follow the spectral module in the [PROCESSES] section.
+// Please refer to the LAP-XM® Software Manual, Section 4.3.5.5.
+// ******************************************************************
+
+  [SpecWA_IR, SpecWB_IR, SpecRASS_IR] = InterferenceReduction(NULL, {SpecWA, SpecWB, SpecRASS})
+  {
+    iUseRiddleGCRemoval     = {1, 1, 1};
+    fClutterHeightKm        = {2.5, 2.5, 2.0};
+    sOLEID                  = 'Lapxm.Spectra_InterferenceReduction.1'; 
+  };
+
+// Optional parameters with default values.
+
+    iTimesBigger            = {3, 3, 3};
+    iPercentLess            = {20, 20, 20};
+    iUseMaxNoiseLevel       = {1, 1, 1};
+    iClutterRemovalMethod   = {0, 0, 0};
+    iDopplerRestriction     = {1, 1, 1};
+    iInterpolateOnlyDcPoint = {0, 0, 0};
+
+// Optional parameters for a peak interpolation algorithm with default values.
+// The peak interpolation feature adversely affects all the moment values, and
+// should not be used without prior discussion with Vaisala.
+
+    iUsePeakInterpolation  = {0, 0, 0};
+    fSpectraRegionMs       = {-0.5, 0.5};
+    fHeightRegionKm        = {0.0, 50.0};
+    iApplyToBeamCodes      = {0,1,2,3,4,5};
+
+
+// 6 ________________________________________________________________
+// ******************************************************************
+// Moments Module - Calculates the spectral moments values (radial
+// velocity, noise power, return power, and spectral width) from the
+// averaged spectra data.
+// 
+// This module is not used for systems with baseband sampled receiver
+// (ISA cards).
+//
+// This module must follow the spectral processing and/or ground
+// clutter interference modules in the [PROCESSES] section. Please
+// refer to the LAP-XM® Software Manual, Section 4.3.5.6.
+// ******************************************************************
+
+  [MomWA, MomWB, MomRASS] = Moments(NULL, {SpecWA_IR, SpecWB_IR, SpecRASS_IR})
+  {
+    sOLEID  = 'Lapxm.Moments.1';
+  };
+
+// Optional parameters with default values.
+
+    iUseThresholds                    = {0, 0, 0};
+    fMinSNR                           = {-15.0, -15.0, -15.0};
+    fMaxSNR                           = {50.0, 50.0, 50.0};
+    fMinWidth                         = {0.2, 0.2, 0.2};
+    fMaxWidth                         = {5.0, 5.0, 5.0};
+    iMaxNumTrials                     = {10, 10, 10};
+    fMaxSuspectWidth                  = {3.0, 3.0, 3.0};
+    iUseDcPoint_FindMoments           = {0, 0, 0};
+    iUseMeanNoiseLevel_FindPeakRegion = {0, 0, 0};
+    iInterpolateOnlyDcPoint           = {0, 0, 0};
+
+
+// 7 ________________________________________________________________
+// ******************************************************************
+// Multiple Peak Picking Algorithm Module - Multiple peak picking
+// algorithm for calculation of the spectral moments values (radial
+// velocity, noise power, return power, and spectral width) from the 
+// averaged spectra data.
+// 
+// This module is not used for systems with baseband sampled receiver
+// (ISA cards).
+//
+// Only one spectral data type can be mapped into each
+// instantiation of this module.
+//
+// This module may be used instead of the moments module and must
+// follow the spectral processing module in the [PROCESSES] section. 
+// Please refer to the LAP-XM® Software Manual, Section 4.3.5.7.
+// ******************************************************************
+
+  [MomMPPWA] = MomentsMPP_WA(NULL, SpecWA) 
+  {
+    iProfileBuildMethod = 1;
+    fClutterHeightKm     = 2.5;
+    fMaxVertSpeedUp     = -3.0;
+    fMaxVertSpeedDw     = 10.0;
+    sOLEID              = 'Lapxm.Moments_MPP_ETH.1';
+  };
+
+// Optional parameters with default values.
+
+    iUseSnrMagnitude        = 1;
+    iIterationCriterium     = 0;
+    iNoiseLevelCriterium    = 1;
+    iMaxTimeSpan            = 3600;
+    fSplApp                 = 3.0;
+    fSMV                    = 3.0;
+    fSVV                    = 3.0;
+    fSSNR                   = 5.0;
+    fAMV                    = 0.78;
+    fAVV                    = 0.02;
+    fASNR                   = 0.20;
+    fSH                     = 400.0;
+    fAlpha0                 = 2.0;
+    fAlpha1                 = 1.0;
+    fAlpha2                 = 1.0;
+    fBetaA0                 = 4.0;
+    fBetaA1                 = 2.5;
+    fBetaA2                 = 1.0;
+    fBetaAPW0               = 400.0;
+    fBetaAPW1               = 710.0;
+    fBetaB0                 = 5.0;
+    fBetaB1                 = 3.0;
+    fBetaB2                 = 1.0;
+    fBetaBPW0               = 710.0;
+    fBetaBPW1               = 3000.0;
+    fFZPower                = 1.0;
+    fFZExtend               = 1.0;
+    fFZDev                  = 1.0;
+    fFZLowest               = 0.25;
+    fFZClutter              = 0.75;
+    fMaxSuspectWidth        = {3.0, 3.0, 3.0};
+    iInterpolateOnlyDcPoint = {0, 0, 0};
+
+// Optional parameters for RFI reduction algorithm with default values
+
+    iRemoveRFI              = 0;
+    fMaxMeanWidthRFI        = 0.45;
+    fMaxDevVelRFI           = 0.3;
+    iMinHeightsRFI          = 10;
+    fMinHeightKmRFI         = 3.0;
+    fMinMeanVelRFI          = 0.0;
+
+// Optional parameters for point target interference reduction algorithm
+// with default values
+
+    iRemovePointTarget      = 0;
+    fPT_DopplerDistance     = 0.2;
+    fPT_MinSnr              = 15.0;
+    fPT_SnrDropOff          = 10.0;
+    fPT_NoiseIncrease       = 5.0;
+    fPT_ZeroDopplerLimit    = 0.3;
+    fPT_NeighborDistance    = 0.8;
+    iPT_Interpolate         = 0;
+
+// Optional parameters for Riddle ground clutter algorithm
+// with default values
+
+    iClutterRemovalMethod   = 0;
+    iDopplerRestriction     = 1;
+    iPercentLess            = 20;
+    iTimesBigger            = 3;
+    iUseMaxNoiseLevel       = 1;
+
+// Optional bird clutter reduction parameters to employ 
+// according to the day number in the year and time of day,
+// with example values
+
+    iParamSwitchEnable                  = 1;
+    iParamSwitchStartDatesDOY           = {91, 244};
+    iParamSwitchStopDatesDOY            = {151, 304};
+    iParamSwitchStartTimesMinutesUTC    = {180, 420};
+    iParamSwitchStopTimesMinutesUTC     = {300, 840};
+    iParamSwitchRainContiguousGates     = 6;
+    fParamSwitchRainVelocityThresholdMs = 2.0;
+    fParamSwitchRainSNRThresholddB      = 50.0;
+    iParamSwitchSnowDwellPercent        = 25;
+    fParamSwitchSnowVelocityThresholdMs = 1.0;
+    fParamSwitchSnowSNRThresholddB      = 50.0;
+    fParamSwitchMinBirdSNRdB            = 55.0;
+    fParamSwitchMinBirdWidthMs          = 1.2;
+    iDebug                              = 0;
+
+
+// 8 ________________________________________________________________
+// ******************************************************************
+// Monitor Database/Moments Data Exchange Module - Calculates the mean
+// noise from moments data and writes the value into the monitor database.
+// Retrieves the latest Forward Power value from the monitor database
+// and appends it to the moments data.
+//
+// This module must follow the moments and/or MPP modules in the [PROCESSES]
+// section. Please refer to the LAP-XM® Software Manual, Section 4.3.6.13.
+// ******************************************************************
+  [MomWA_MD, MomWB_MD, MomRASS_MD] = Monitor_Data(NULL,NULL,NULL,{MomWA, MomWB, MomRASS})
+  {
+    iEnable_MeanNoise           = 1;
+    sClassName_MeanNoise        = 'LAP-16000';
+    sDeviceName_MeanNoise       = 'Mean Noise';
+
+    iEnable_ForwardPower        = 1;
+    sDeviceName_ForwardPower    = 'PowerMeter_E4417A';
+    sParameterName_ForwardPower = 'Fwd Power (TxOn)';
+    sOLEID                      = 'Lapxm.Monitor_Data.1';
+  };
+
+
+// 9 ________________________________________________________________
+// ******************************************************************
+// POP Archive Module - Records time-series, spectra and/or moments in
+// a binary data file.
+//
+// This module must follow the moments and/or MPP modules in the [PROCESSES]
+// section. Please refer to the LAP-XM® Software Manual, Section 4.3.5.10.
+// ******************************************************************
+
+  PopArchive(NULL, {TsWA,TsWB,TsRASS}, {SpecWA,SpecWB,SpecRASS}, {MomWA,MomWB,MomRASS})
+  {
+    iAppend          = 1;
+    iPopCompliant    = 1;
+    iWriteMoments    = 1;
+    iWriteSpectral   = 1;
+    iWriteTimeSeries = 0;
+    sPath            = 'D:\LapxmData\SpecMom';
+    sOLEID           = 'LAPXM.PopArchiver.1';
+  };
+
+// Optional parameters with default values.
+
+    iWriteHourlyFiles        = 0;
+    sFileNameCharacter       = 'a';
+    iWriteBeamDirectionCodes = -1;
+    iWriteMisc               = 0;
+    iWriteUtcTime            = 0;
+
+
+// 10 _______________________________________________________________
+// ******************************************************************
+// Dwell Display Module - Displays time-series, spectra and/or moments
+// data using a web browser. Can also produce .jpg format graphs for
+// remote use.
+//
+// This module must follow the spectra and moments and/or MPP modules in
+// the [PROCESSES] section. Please refer to the LAP-XM® Software
+// Manual, Section 4.3.5.8.
+// ******************************************************************
+
+  DwellDisplay(NULL, {TsWA,TsWB,TsRASS},{SpecWA_IR,SpecWB_IR,SpecRASS_IR},{MomWA,MomWB,MomRASS})
+  {
+    iContourFirstLevel     = 1;
+    iContourInterval       = 5;
+    iCreateContourPlot     = 1;
+    iCreateMomentsTable    = 1;
+    iCreateSnrPlot         = 1;
+    iCreateStackedPlot     = 1;
+    iCreateTimeSeriesPlot  = 1;
+    iCreateContourJpeg     = 1;
+    iCreateSnrJpeg         = 1;
+    iCreateStackedJpeg     = 1;
+    iCreateTimeSeriesJpeg  = 0;
+    iLogStackPlot          = 0;
+    iNormalizeStackPlot    = 1;
+    iOmitDcPoint           = 1;
+    iRassUnits             = 0;
+    iShowRassData          = 1;
+    iTimeSeriesA           = 1;
+    iTimeSeriesB           = 0;
+    iTimeSeriesNormalized  = 1;
+    iWindUnits             = 0;
+    sOLEID                 = 'LAPXM.DwellDisplay.1';
+  }; 
+
+
+// 11 _______________________________________________________________
+// ******************************************************************
+// Console Display Module - Display spectrum and/or moments data using
+// the LAP-XM® Console display.
+//
+// This module must follow the spectra and moments and/or MPP modules in
+// the [PROCESSES] section. Please refer to the LAP-XM® Software
+// Manual, Section 4.3.5.9.
+// ******************************************************************
+  ConsoleDisplay(NULL, {TsWA, TsWB, TsRass},{SpecWA, SpecWB, SpecRASS}, {MomWA, MomWB, MomRASS})
+  {
+    sOLEID          = 'Lapxm.ConsoleDisplay.1';
+  };
+
+
+// 12 _______________________________________________________________
+// ******************************************************************
+// Cn2 Algorithm Module - Compute and archive Cn2 values.
+//
+// The data input to the Cn2 Algorithm module are spectral moments. 
+// Multiple instantiations of the module with unique process names may
+// be required for larger data streams. This module must follow the
+// moments and/or MPP modules in the [PROCESSES] section. Please refer
+// to the LAP-XM® Software Manual, Section 4.3.6.2.
+
+// ******************************************************************
+
+[Cn2WA, Cn2WB] = Cn2({NULL}, {MomWA, MomWB})
+  {
+    fAntGainDb           = {28.5, 28.5};
+    fAntHalfPwrWidthDeg  = {6.8, 6.8};
+    fFeedInsertionLossDb = {-1.8, -1.8};
+    fPeakFwdPwrW         = {600.0, 600.0};
+    fRXSysGainDb         = {190.47, 190.14};
+    sOLEID               = 'Lapxm.Cn2.1';
+  };
+
+// Optional parameters with default values.
+    fAtmosAttenDb        = 0.0;
+    sDevice_FwdPwr       = 'Final Amp/Preamp';
+    sOutputFilePath      = 'D:\LAPXMData\Cn2';
+    iOutputFileType      = 0;
+    sParam_FwdPwr        = 'FAP Fwd Peak Power (TxOn)';
+    lRxCorrDelayNs       = {};
+    fRxCorrFactor        = {};
+    fRxLossFactor        = 1.66;
+    iUseFwdPwrMon        = {0};
+    iUseRxCorr           = {0, 0};
+
+
+// 13 _______________________________________________________________
+// ******************************************************************
+// Boundary Layer Module (experimental) - Computes boundary layer height
+// from spectral moments values.
+//
+// This module must follow the moments or MPP modules in the [PROCESSES]
+// section. Please refer to the LAP-XM® Software Manual, Section 4.3.6.3.
+// ******************************************************************
+ 
+  BoundaryLayer(NULL, {MomWA, MomWB})
+  {
+    iEnable              = {1,1};
+    iCalculateOnMinute   = {0, 30};
+    iMinBlScore          = 1400;
+    sOutputPath          = 'D:\LapxmData\BoundaryLayer';
+    iSunriseDelayMin     = 120;
+    sOLEID               = 'Lapxm.BoundaryLayer.1';
+  };
+
+// Optional parameters with default values.
+
+    iCalculateOnStop     = 0;
+    iDebug               = 0;
+    sFinalResultFromMode = 'none';
+    iLogFile             = 0;
+    sLogPath             = 'D:\LapxmData\BoundaryLayer';
+    iReplaceSnrdb        = -30;
+    iWriteHeader         = 0;
+    iWriteHourlyFiles    = 0;
+
+
+// 14 _______________________________________________________________
+// ******************************************************************
+// Melting Layer Module (optional) - Computes the melting layer height
+// from spectral moments values.
+//
+// This module must follow the moments and/or MPP modules in the [PROCESSES]
+// section. Please refer to the LAP-XM® Software Manual, Section 4.3.6.4.
+// ******************************************************************
+ 
+  MeltingLayer(NULL, {MomWA, MomWB})
+  {
+    iEnable              = {1, 1};
+    iCalculateOnMinute   = {0, 30};
+    iMinHeightM          = {0, 0};
+    iMaxHeightM          = {2600, 5000};
+    iMinSnrDvvPairs      = {2, 3};
+    iMinSnrRain          = {52, 52};
+    fDeltaSnrBb          = {2.5, 2.5}; 
+    fDeltaDvvBb          = {-1.5, -1.5};
+    fMinSnrBb            = {62.0, 62.0};
+    iDvvBbOnlyMaxHeightM = {500, 0};
+    fDvvBbOnlyMinSnr     = {52.0, 62.0};  
+    iGateSpaceResolution = {3, 2};
+    iBrightBandPercent   = {25, 25};
+    iAcceptHeightRangeM  = {211, 211};
+    iAcceptPercent       = {65, 65};
+    iQcMaxRainAboveBb    = {4, 8};
+    sOutputPath          = 'D:\LapxmData\MeltingLayer';
+    sOLEID               = 'Lapxm.MeltingLayer.1';
+  };
+
+// Optional parameters with default values.
+
+    iCalculateOnStop     = 1;
+    iDebug               = 0;
+    iLogFile             = 0;
+    sLogPath             = 'D:\LapxmData\MeltingLayer';
+    iReplaceSnrdb        = -30;
+    iWriteHeader         = 0;
+    iWriteHourlyFiles    = 0;
+
+
+// 15 _______________________________________________________________
+// ******************************************************************
+// Spectral Moments Quality Control Module (experimental) - Flags suspect
+// moments data using Weber/Wuertz pattern recognition algorithm.
+// 
+// This module must follow the moments and/or MPP modules in the [PROCESSES]
+// section. Please refer to the LAP-XM® Software Manual, Section 4.3.6.5.
+// ******************************************************************
+
+  [MomWA_WWQC, MomWB_WWQC, DwellControl] = WeberWuerts_Moments(NULL, {MomWA_MPP, MomWB_MPP})
+  {
+    iEnable                        = 1;
+    fHeightResolution              = 2.5;
+    fMaxVelocityChange             = 1.0;
+    iMinPatternSize                = 8;
+    iQcBlockOrRunning              = 0;
+    iQcOnStop                      = 1;
+    iQcProcessOnMinute             = {60};
+    fThreshold_MinSNR              = -18.0;
+    fTimeResolution                = 2.5;
+    sOLEID                         = 'Lapxm.QC_WeberWuertz_Moments.1';
+  };
+
+// Optional parameters with default values.
+
+    iMatchFortran                  = 0;
+    fThreshold_MaxNoise            = 1000.0;
+    fThreshold_MaxSNR              = 1000.0;
+    fThreshold_MaxWidth            = 1000.0;
+    fThreshold_MinVelocity         = -1000.0;
+    sResultPath                    = 'D:\LapxmData\WeberWuertz';
+    iWriteLogFiles                 = 0;
+    iWriteResultFiles              = 1;
+
+
+// 16 _______________________________________________________________
+// ******************************************************************
+// Consensus Wind and Virtual Temperature Module - Computes consensus
+// wind and/or virtual temperature values from spectral moments data. 
+//
+// Unless the moments data from all the modes specified in the
+// [DWELLSEQUENCE] section of the configuration file are mapped into
+// the Consensus module, time stamped data of all remaining modes should
+// be defined as input parameters in the last field of the Consensus
+// module declaration.
+//
+// For example:
+// [CnsWindsA, CnsWindsB] = Consensus(NULL, {MomWA, MomWB}, {TsRASS}) 
+//
+// This module must follow the moments and/or MPP modules in the [PROCESSES]
+// section. Please refer to the LAP-XM® Software Manual, Section 4.3.5.11.
+// **************************************************************
+ 
+  [CnsWindsA, CnsWindsB, CnsRASS] = Consensus(NULL, {MomWA, MomWB, MomRASS}, NULL)
+  {
+    iConsenseOnStop                    = {1, 1, 1};
+    iConsenseOnMinute                  = {0,30, -1, 0,30, -1, 3,33};
+    fDeltaT                            = {0.0, 0.0, 3.0};
+    fDeltaTc                           = {0.0, 0.0, 3.0};
+    fDeltaUV                           = {3.0, 3.0, 0.0};
+    fDeltaW                            = {3.0, 3.0, 3.0};
+    fPctDataT                          = {0.0, 0.0, 60.0};
+    fPctDataTc                         = {0.0, 0.0, 60.0};
+    fPctDataUV                         = {60.0, 60.0, 0.0};
+    fPctDataW                          = {60.0, 60.0, 60.0};
+    iVerticalCorrect                   = {1, 1, 1};  
+    iUseObliqueBeamsForVertical        = {1, 1, 0};
+    iUseVerticalObliqueRangeCorrection = {0, 0, 0};
+    iCheckConsensusSpan                = {1, 1, 1};
+    sMethod                            = {'mean', 'mean', 'mean'};
+    sTimeStamp                         = {'begin', 'begin', 'begin'};
+    sOLEID                             = 'Lapxm.Consensus_WindTemp.1';
+  };
+
+// Optional parameters with default values.
+
+    iEnable                     = {1, 1, 1};
+    iApplyToBeamCodes           = {0,1,2,3,4,5};
+    iAddToAvgPeriodMin          = {0, 0, 0};
+    iAddToCnsQCPeriodMin        = {0, 0, 0};
+    iUseRunningConsensus        = {0, 0, 0};
+    iCnsIntervalCycles          = {5, 5, 5};
+    iCnsLengthCycles            = {10, 10, 10};
+    iMinCnsLengthCycles         = {3, 3, 3};
+    iConsenseOnBeamDirection    = {-1, -1, -1};
+    iTimeStampOffset            = {0, 0, 0};
+    iUseBeamVariabilityCheck    = {0, 0, 0};             
+    fVariabilityFactorLimit     = {10.0, 10.0, 10.0};          
+    iVariabilityCheckRequireCns = {1, 1, 1};      
+
+// Optional parameters for NOAA precipitation correction algorithm with default values.
+
+    iPrecipitationCorrection    = {0, 0, 0};
+    fDeltaPrecip                = {0.0, 0.0, 0.0};
+    fPctDataPrecip              = {0.0, 0.0, 0.0};
+    fPrecipMinSnr               = {60.0, 60.0, 60.0};
+    fPrecipMinVelocity          = {1.0, 1.0, 1.0};
+    iPrecipOutputSnrRc          = {0, 0, 0};
+
+// Optional parameters for surface wind and temperature data from the optional
+// WXT Weather Transmitter with default values.
+
+    iIncludeWeatherTransmitterData = {0, 0, 0};
+    sWeatherTransmitterModuleName  = 'Wxt';
+
+
+// 17 _______________________________________________________________
+// ******************************************************************
+// Wind and RASS Data Quality Control Module - Computes quality control
+// values for wind and/or RASS data. The data points are flagged from
+// 0 (good) to 9 (bad).
+//
+// The default QC codes are 0 = valid, 9 = missing or failed consensus,
+// or a single user-defined value between 2-8 (= iQCCode) marking data
+// that did not pass the Weber-Wuertz criteria. The recommended codes
+// are 7 = suspect or 8 = invalid. The latter will also cause the
+// data value to be replaced with a missing value.
+//
+// This module must follow the consensus modules in the [PROCESSES]
+// section. Please refer to the LAP-XM® Software Manual, Section 4.3.5.12.
+// ******************************************************************
+
+  [CnsWindsA_QC, CnsWindsB_QC, CnsRASS_QC] = QC_WeberWuertz(NULL, {CnsWindsA, CnsWindsB, CnsRASS})
+  {
+    fMaxGradientU      = {5.0, 5.0, 0.0};
+    fMaxGradientV      = {5.0, 5.0, 0.0};
+    fMaxGradientW      = {3.0, 3.0, 3.0};
+    fMaxGradientTemp   = {0.0, 0.0, 4.0};
+    iMinPatternSize    = {10, 10, 10};
+    iNeighborsInHeight = {2, 2, 2};
+    iNeighborsInTime   = {2, 2, 2};
+    iProfiles          = {6, 6, 6};
+    iQCCode            = {8, 8, 8};                    
+    sOLEID             = 'Lapxm.QC_WeberWuertz.1';
+  };
+
+// Optional parameters with default values.
+
+    iEnable               = {1, 1, 1}; 
+    iDisplayQualityScore  = {0, 0, 0};
+    iMinRequiredProfiles  = {2, 2, 2};
+    iModel                = {1, 1, 1};
+    iNeighbors            = {128, 128, 128};
+    fOutlierThresholdU    = {30.0, 30.0, 0.0}; 
+    fOutlierThresholdV    = {30.0, 30.0, 0.0}; 
+    fOutlierThresholdW    = {5.0,  5.0,  5.0};  
+    fOutlierThresholdTemp = {0.0, 0.0, 20.0}; 
+    iOverwriteVertical    = {1, 1, 1}; 
+    iRejectionThreshold   = {10, 10, 10};    
+    iUseMultipleQCCodes   = {0, 0, 0};   
+
+// Optional parameters for 4-beam winds with default values.
+
+    fMaxGradient4BeamU    = {5.0, 5.0, 0.0};
+    fMaxGradient4BeamV    = {5.0, 5.0, 0.0};
+    iMin4BeamPatternSize  = {10, 10, 10};
+
+// Optional parameters for vertical velocity check with default values.
+
+    iUseVerticalVelocityCheck = {0, 0, 0};
+    fMaxDiffVerticalVelocity  = {4.0, 4.0, 4.0};
+    fMaxVerticalVelocity      = {12.0, 12.0, 12.0};
+
+
+// 18 _______________________________________________________________
+// ******************************************************************
+// Optional Wind Data Quality Control Module (experimental) - Calculates
+// winds values using flagged QC data from moments version of the 
+// same module. Resulting wind values are flagged using Weber/Wuertz 
+// pattern recognition algorithm.
+//
+// This module must follow the Spectral Moments Quality Control module
+// in the [PROCESSES] section. Please refer to the LAP-XM® Software 
+// Manual, Section 4.3.6.6.
+// ******************************************************************
+  [WindsWA_WWQC, WindsWB_WWQC] = WeberWuertz_Winds(NULL, {MomWA_WWQC, MomWB_WWQC}, {DwellControl})
+  {
+    iEnable                        = 1;
+    iFlagSuspectData               = 1;
+    fHeightResolution              = 2.5;
+    fMaxVelocityChange             = 4.0;
+    iMinPatternSize                = 8;
+    iMinSamplesInAverage           = 4;
+    iQcBlockOrRunning              = 1;
+    iQcOnStop                      = 1;
+//  iQcProcessOnMinute             = {60}; // Parameter should be used only if iQcBlockOrRunning = 0; 
+    iQcProcessingPeriodInMinutes   = 1440; // Parameter should be used only if iQcBlockOrRunning = 1;
+    fTimeResolution                = 2.5;
+    iWindAverageOnMinute           = {60};
+    sOLEID                         = 'Lapxm.QC_WeberWuertz_Winds.1';
+  };
+
+// Optional parameters with default values.
+
+    iMatchFortran                  = 0;
+    sResultPath                    = 'D:\LapxmData\WeberWuertz';
+    iWriteLogFiles                 = 0;
+    iWriteResultFiles              = 1;
+
+// Optional Bird Parameter Switching
+    iDebug                           = 1;
+    iParamSwitchEnable               = 1;
+    iParamSwitchStartDatesDOY        = {91, 244};
+    iParamSwitchStopDatesDOY         = {151, 304};
+    iParamSwitchStartTimesMinutesUTC = {180};
+    iParamSwitchStopTimesMinutesUTC  = {840};
+    iParamSwitchMinSamplesInAverage  = 3;
+
+
+// 19 _______________________________________________________________
+// ******************************************************************
+// Consensus Archive Module - Archives wind and/or RASS data to a text file.
+// Using PopCompliant = 0 allows user to select items to write.
+// Using PopCompliant = 1 forces the output to be POP format compliant.
+//
+// This module must follow the consensus and/or QC module in the [PROCESSES]
+// section. Please refer to the LAP-XM® Software Manual, Section 4.3.5.13.
+// ******************************************************************
+
+  Archive_Cns_Text(NULL, {CnsWindsA, CnsWindsB, CnsRASS})
+  {
+    iWrite          = 1;
+    iPopCompliant   = 1;
+    iWrite_Radials  = 1;
+    iWrite_SNR      = 1;
+    iWrite_CCounts  = 1;
+    iWrite_UVW      = 0;
+    iWrite_QC       = 0; 
+    sPath           = 'D:\LapxmData\WindTemp';
+    sOLEID          = 'Lapxm.Archive_Cns_Text.1';
+  };
+
+// Optional parameters with default values.
+
+    iUseExtendPrecision = 0;
+    iWriteSurfaceMet    = 0;
+    iWrite_Width        = 0;
+    iWriteUtcTime       = 0;
+
+
+// 20 _______________________________________________________________
+// ******************************************************************
+// NetCDF Archive Module - Archives time-series, spectra and/or moments
+// in a NetCDF based data file. It can also write wind and/or virtual
+// temperature data into another separate file (not containing 
+// time-series, spectra and/or moments data.
+//
+// This module must follow the spectral, moments, MPP, consensus
+// wind/temperature, and/or QC modules in the [PROCESSES]section.
+// Please refer to the LAP-XM® Software Manual, Section 4.3.5.14.
+// ******************************************************************
+
+  Archive_NetCDF_TSMW(NULL, {TsWA,TsWB, TSRASS}, {SpecWA,SpecWB, SpecRASS}, 
+{MomWA, MomWB, MomRASS}, {CnsWindsA, CnsWindsB, CnsRASS})
+  {           
+    iAppend           = 1;
+    iWriteMoments     = 1; 
+    iWriteSpectral    = 1; 
+    iWriteTimeSeries  = 0; 
+    iWriteWinds       = 0; 
+    sPath             = 'D:\LapxmData\NetCDF';   
+    sOLEID            = 'LAPXM.Archiver_TSMW_NetCDF.1';
+  };
+
+// Optional parameters with default values.
+
+    iEnable                  = 1;
+    sFileNameCharacter       = 'a';
+    sHardLinkPath            = '';
+    iWMOStationNumber        = -1;
+    iWriteBeamDirectionCodes = -1;
+    iWriteFullHeader         = 1; 
+    iWriteSurfaceData        = 0;
+    iWriteWindBeams          = 0;
+
+
+// 21 _______________________________________________________________
+// ******************************************************************
+// Consensus Database Module - Archives wind and/or virtual temperature
+// data into a Microsoft Access database.
+//
+// This module must follow the consensus wind/temperature and/or QC
+// module in the [PROCESSES] section. Please refer to the LAP-XM®
+// Software Manual, Section 4.3.5.15.
+// ******************************************************************
+
+  Archive_Cns_DB(NULL, {CnsWindsA, CnsWindsB, CnsRASS})
+  {
+    sDescription     = 'Two winds and RASS';
+    iWrite           = 1;
+    sPath            = 'D:\LapxmData\DB\LapxmCnsDb.mdb';
+    sOLEID           = 'Lapxm.Archive_Cns_DB.1';
+  };
+
+// Optional parameters with default values.
+
+    iWriteUtcTime  = 0;
+
+
+// 22 _______________________________________________________________
+// ******************************************************************
+// WMO BUFR Data Formatting Module - Archives wind and/or virtual
+// temperature data in BUFR messages using format and parameter
+// definitions from the COST-76 final report.
+//
+// This module must follow the consensus wind/temperature and/or QC
+// module in the [PROCESSES] section. Please refer to the LAP-XM®
+// Software Manual, Section 4.3.6.8.
+// ******************************************************************
+
+  Archive_Cns_BUFR(NULL, {CnsWindsA, CnsWindsB, CnsRASS})
+  {
+    iWMOBlockNumber                  = 12;
+    iWMOStationNumber                = {806, 807, 808};
+    iTypeOfStation                   = 0;
+    iTypeOfAntenna                   = 4;
+    fAntenna3dBBeamWidth             = 6.0;
+    iObservationSignificance         = 21;
+    iVerticalObservationSignificance = 21;
+    iBadGates                        = {1,2, 0,0, 0,0};
+    sFlagBadMethod                   = 'SetSignificance';
+    sFileNameBegin                   = {'CM2WP_','CAMWP_','CM2RS_'};
+    sFileNameEnd                     = '.PRO';
+    sTimeFormat                      = '%m%d%H%M';
+    sOutputPath                      = 'D:\LapxmData\BUFR';
+    iOutputAllowOverwrite            = 1;
+    iOutputFilesToKeep               = 1;
+    iArchive                         = 1;
+    sArchivePath                     = 'D:\LapxmData\BUFR\Archive';
+    iArchiveAllowOverwrite           = 0;
+    iArchiveFilesToKeep              = 0;
+    sOLEID                           = 'Lapxm.Archive_Cns_BUFR.1';
+  };
+
+// Optional parameters with default values.
+
+    iWrite                           = 1;
+    iBufrTableVersion                = 9;
+    iFlagBadSignificanceValue        = 1;
+    sHeightConvention                = 'AGL';
+    iMeanSpeedEstimation             = 0;
+    fSurfacePressure                 = 0.0;
+    iTimeSignificance                = 2;
+    iWindComputationEnhancement      = 2;
+    iWriteUtcTime                    = 0;
+
+
+// 23 _______________________________________________________________
+// ******************************************************************
+// XML Data Formatting Module - Archives wind and/or virtual temperature
+// data in XML format.
+//
+// The XML message is written to the output data structure, and optionally
+// to a text file. The optional iOutputAltitudes parameter allows reporting
+// only select altitudes. The nearest range gate is used at each height.
+//
+// This module must follow the consensus wind/temperature and/or QC
+// module in the [PROCESSES] section. Please refer to the LAP-XM®
+// Software Manual, Section 4.3.6.9.
+// ******************************************************************
+
+  [CnsWindsA_XML, CnsWindsB_XML, CnsRASS_XML] = Archive_Cns_XML(NULL, {CnsWindsA, CnsWindsB, CnsRASS})
+  {
+    iWrite                     = 1;
+    sXmlSchema                 = 'C:\Program Files\Crada\Lapxm\Bin\wdml.xsd';
+    sOLEID                     = 'Lapxm.Archive_Cns_XML.1';
+  };
+
+// Optional parameters with default values.
+
+    sAltitudeUnits             = 'meters';
+    sFileNameEnd               = {'_WA_%H%M.XML', '_WB_%H%M.XML','_%H%M.XML'}; //This list is not the default values.
+    iOutputAltitudes           = {500, 1000, 2000, -1, 1000, 2000, 3000, -1, 300, 500, 700}; //This list is not the default values.
+    sPath                      = 'D:\LapxmData\XML';
+    iWriteToFile               = 0;
+    iWriteUtcTime              = 0;
+
+
+// 24 _______________________________________________________________
+// ******************************************************************
+// COM Consensus Communications Module - Sends wind and/or virtual
+// temperaure data to a serial port. The output has the same format
+// as Archive_Cns_Text.
+//
+// This module must follow the consensus wind/temperature and/or QC
+// module in the [PROCESSES] section. Please refer to the LAP-XM®
+// Software Manual, Section 4.3.6.10.
+// ******************************************************************
+
+  Archive_Cns_COM(NULL, {CnsWindsA, CnsWindsB, CnsRASS} )
+  {
+    iWrite         = 1;
+    sCOMport       = 'COM1';
+    iBaudRate      = 9600;
+    iDataBits      = 8;
+    iStopBits      = 1;
+    sParity        = 'N';
+    iPopCompliant  = 1;
+    iWrite_Radials = 1;
+    iWrite_SNR     = 1;
+    iWrite_CCounts = 1;
+    iWrite_UVW     = 0;
+    iWrite_QC      = 0;
+    sOLEID         = 'Lapxm.Archive_Cns_COM.1';
+  };
+
+// Optional parameters with default values.
+
+    iUseExtendPrecision = 0;
+    iWriteSurfaceMet    = 0;
+    iWrite_Width        = 0;
+    iWriteUtcTime       = 0;
+
+
+// 25 _______________________________________________________________
+// ******************************************************************
+// CDF Formatting Module - Archives wind and/or virtual temperature
+// RASS data in a Sonoma Technology Inc. CDF format.
+//
+// This module must follow the consensus wind/temperature and/or QC
+// module in the [PROCESSES] section. Please refer to the LAP-XM®
+// Software Manual, Section 4.3.6.11.
+// ******************************************************************
+
+  CnsCDF({NULL}, {CnsWindsA, CnsWindsB, CnsTemps})
+  {
+    iWrite                = 1;
+    fCdfVer               = 2.0;
+    iWriteHourly          = 0;
+    iWriteParamLog        = 1;
+    fUTMN_km              = 432.1;
+    fUTME_km              = 123.4;
+    sProjectName          = 'Boondocks';
+    sTimeZone             = 'UTC';
+    iNumModes             = 4;
+    sModeName1            = '60 meter';
+    sModeName2            = '100 meter';
+    sModeName3            = '200 meter';
+    sModeName4            = '400 meter';
+    iModeNS1              = 417;
+    iModeNS2              = 708;
+    iModeNS3              = 1417;
+    iModeNS4              = 2833;
+    iWindAvgPeriodMin     = 0;
+    iRassAvgPeriodMin     = 0;
+    iWindReqAvgPeriodMin  = 0;
+    iRassReqAvgPeriodMin  = 0;
+    iRdyHoldProdCnt       = 2;
+    sTimeConv             = 'Begin';
+    sTvUnits              = 'C';
+    sVelUnits             = 'm/s';
+    sGateHeightUnits      = 'm';
+    sGateHeightConv       = 'agl';
+    sPathDailyWind        = 'D:\LapxmData\CDF\Daily\Winds\';
+    sPathDailyTv          = 'D:\LapxmData\CDF\Daily\Tv\';
+    sPathHourlyWind       = 'D:\LapxmData\CDF\Hourly\Winds\';
+    sPathHourlyTv         = 'D:\LapxmData\CDF\Hourly\Tv\';
+    sPathParamLog         = 'D:\LapxmData\WindTemp\';
+    sPathDataReadyTv      = 'D:\LapxmData\CDF\';
+    sPathDataReadyWind    = 'D:\LapxmData\CDF\';
+    sOLEID                = 'Lapxm.Archive_Cns_STICDF.1';
+    };
+
+// Optional parameters with default values.
+
+    iWriteUtcTime  = 0;
+
+
+// 26 _______________________________________________________________
+// ******************************************************************
+// Network Data Communications Module - Sends any data to a network
+// location using the Vaisala Messaging Middle-Ware library.
+//
+// This module is typically used with the XML data formatting module.
+//
+// This module must follow the Archive XML module in the [PROCESSES]
+// section. Please refer to the LAP-XM® Software Manual, Section 4.3.6.12.
+// ******************************************************************
+
+  MmwSender(NULL, {CnsWindsA_XML, CnsWindsB_XML, CnsRASS_XML})
+  {
+    iWrite           = 1;  
+    sNodeName        = ‘Airport WP’;
+    sServerURI       = ‘socket://193.10.100.10:30000’;
+    sOLEID           = ‘Lapxm.MmwSender.1’;
+  };
+
+// Optional parameters with default values.
+
+    sGateWayURI      = 'none';
+    iMsgReceiptLevel = 0;
+    sMsgSendMethod   = 'post';
+    iMsgTimeout      = 120;
+
+
+// 27 _______________________________________________________________
+// ******************************************************************
+// Adaptive RASS Audio Frequency Module - Adjusts the limits of the
+// RASS audio frequencies using virtual temperature data acquired
+// in a previous RASS consensus cycle.
+//
+// This module must follow the consensus wind/temperature and/or QC
+// module in the [PROCESSES] section. Please refer to the LAP-XM®
+// Software Manual, Section 4.3.5.16.
+// ******************************************************************
+
+  Rass_AdaptiveAudioFreq(NULL, CnsRASS)
+  {
+    iEnable        = 1;
+    fTempAllowance = 3.0;
+    sOLEID         = 'Lapxm.Rass_AdaptiveAudioFreq.1';
+  };
+
+// Optional parameters with default values.
+
+    fMaxSnr             = 60.0;
+    fMaxSnrGradient     = 120.0;
+    fMinSnr             = -20.0;
+    fPctLimit           = 50.0;
+    iSpecPointAllowance = 4;
+    iUseTempCorrected   = 0;
+
+
+// 28 _______________________________________________________________
+// ******************************************************************
+// RASS Correction Module - Computes corrected virtual temperature
+// using an algorithm from the German Weather Service (DWD).
+//
+// This module must follow the consensus wind/temperature module in
+// the [PROCESSES] section. Please refer to the LAP-XM® Software Manual,
+// Section 4.3.6.7.
+// ******************************************************************
+
+  [CnsRASSCorr, CnsRASS1Corr] = RassCorrection(NULL, {CnsRASS, CnsRASS1})
+  {
+    fAverageHumidityPct        = {70.0, 70.0};
+    iInterpolateBadRanges      = {1, 1};
+    fLightVelocityAtm          = {2.99707e+8, 2.99707e+8};
+    fMaxSnr                    = {45.0, 45.0};
+    fMaxSnrGradient            = {60.0, 60.0};
+    fMinSnr                    = {0.0, 0.0};
+    iUseReflectivityCorrection = {1, 1};
+    iUseTemperatureCorrection  = {1, 1};
+    sOLEID                     = 'Lapxm.RassCorrection_DWD.1';  
+  };
+
+
+// 29 _______________________________________________________________
+// ******************************************************************
+// Spectra/Moments Replay Module - Replays Time Series, Spectra and/or
+// Moment binary data files for display or reprocessing. The [PROCESSES]
+// section of a configuration file for reprocessing would start with
+// this module. The signal processing and/or display modules would follow.
+//
+// sFile can have wildcards: sFile = {'D06*a.spc'};
+// sDateRange shows YYJJJ of desired files: sDateRange = {'06143','06150'};
+//
+// Please refer to the LAP-XM® Software Manual, Section 4.3.6.1.
+// ******************************************************************
+
+  [TsWA,SpecWA,MomWA,TsWB,SpecWB,MomWB,TsRASS,SpecRASS,MomRASS] = PlayBack(NULL)
+  {
+    sFile            = 'D06267a.spc';
+    sPath            = 'd:\LapxmData\specmom';
+    iProcessSpeedSec = 2;
+    sOLEID           = 'LAPXM.PlayBack.1';      
+  };
+
+// Optional parameters with default values.
+
+    sDateRange            = {'none'};
+    iDwellControlModule   = 'DwellControl_Speed';
+    iProcessSpeedMilliSec = 0;
+    iUseCurrentTimeStamp = 0;
+
+

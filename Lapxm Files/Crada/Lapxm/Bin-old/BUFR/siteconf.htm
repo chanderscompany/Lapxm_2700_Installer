@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Copyright" CONTENT=" Northern LightHouse Ltd">
+<META NAME="Updated" CONTENT="15 Oct 2005">
+<TITLE> Site Configuration File </TITLE>                                                       
+</HEAD>
+<H2 ALIGN="CENTER"> Site Configuration File <TT>'siteconf.htm'</TT> </H2>
+<H4 ALIGN="CENTER"> as used by SoftBUFR Class Library and BUFRtool utility program </H4>
+<PRE>
+#
+# This file contains Site Configuration values. They will be used as default 
+# site values when creating new BUFR messages. They will also define the  
+# default version number of BUFR table files and BUFR edition to be used.
+#
+# These numeric values (in decimal) are:
+#
+    0	discipline (0 for meteorology)
+   59	centre code (see code table: 0'01'033, same as for GRIB)
+    0	subcentre code (local definition)
+    9	version number of current BUFR master tables 
+    0	version number of current local tables (0 if no local tables used)
+    3	BUFR edition (3 or 4)
+</PRE>
+</BODY>
+</HTML>

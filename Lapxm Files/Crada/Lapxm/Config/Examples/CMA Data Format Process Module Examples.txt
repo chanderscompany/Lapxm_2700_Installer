@@ -1,0 +1,92 @@
+// CMA Data Format Process Module Examples.txt
+// LAP-XM® 2.6.0.0
+// 29May12 CC, JWN, RHL
+//
+// ******************************************************************
+// ******************************************************************
+// 
+// The following are examples of module sections for use in the 
+// [PROCESSES] section of a *.cfg file.
+//
+// Please refer to the LAP-XM® Software Manual, Section 4.3.5 and 4.3.6,
+// for information on how to set up the [PROCESSES] section, and a
+// detailed description of the parameters. Section 4.2 describes
+// the configuration file language syntax.
+
+
+// ******************************************************************
+// ******************************************************************
+// Chinese Meteorological Agency (CMA) Proprietary Archive Files 
+// Please refer to the CMA Data Formats Technical Note for further
+// information.
+// ******************************************************************
+// ******************************************************************
+
+
+// 30 _______________________________________________________________
+// ******************************************************************
+// CMA Spectra/Moments Archive Module - Outputs proprietary binary 
+// and text files for the Chinese Met Agency
+// ******************************************************************
+
+  SpecMom_CMA(NULL, {SpecWA_IR, SpecWB_IR}, {MomWA, MomWB})
+  {
+    iWrite              = 1;
+    iCalibrationStatus  = 1;
+    sCountry            = 'China';
+    iNumBeamsLowMode    = 5;
+    iNumBeamsHighMode   = 5;
+    sPathSpectra        = 'D:\CMA\SpecMom';
+    sPathMoments        = 'D:\CMA\SpecMom';
+    sProvince           = 'Zhejiang';
+    sRadarType          = 'LC';
+    sStationNumber      = 'K2345';
+    iTimeSource         = 2;
+    sOLEID              = 'Lapxm.Archive_SpecMom_CMA.1';
+  };
+
+// Optional parameters with default values.
+
+    fAntennaGain       	= 9999.0;
+    fBeamWidthDeg       = 9999.0;
+    fCableLoss          = 9999.0;
+    fOutputAveragePowerKw = 9999.0;
+    fOutputPeakPowerKw    = 9999.0;
+
+
+// 31 _______________________________________________________________
+// ******************************************************************
+// CMA Consensus Wind Archive Module - Outputs proprietary text file
+// for the Chinese Met Agency
+// ******************************************************************
+
+  CnsCMA(NULL, {CnsWAQ_RT, CnsWBQ_RT}, {CnsWAQ_30, CnsWBQ_30}, {CnsWAQ_60, CnsWBQ_60}, {Cn2WA, Cn2WB})
+  {
+    iWrite          = 1;
+    sPathRealTime   = 'D:\CMA\WindTempRT';
+    sPathHalfHourly = 'D:\CMA\WindTemp30';
+    sPathHourly     = 'D:\CMA\WindTemp60';    
+    sRadarType      = 'LC';
+    sStationNumber  = 'K2345';
+    sOLEID          = 'Lapxm.Archive_Cns_CMA.1';
+  };
+
+
+// 32 _______________________________________________________________
+// ******************************************************************
+// CMA Radar Status Module - Outputs a proprietary binary file 
+// containing radar status for the Chinese Met Agency
+// ******************************************************************
+
+  Status_CMA(NULL, {TsWA, TsWB, TsWC, TsWD, TsRASS})
+  {
+    iEnable             = 1;
+    sCountry            = 'China';
+    sProvince           = 'Zhejiang';
+    sRadarType          = 'LC';
+    sStationNumber      = 'K1234';
+    sOutputPath         = 'D:\CMA\Status';   
+    sOLEID              = 'Lapxm.Status_CMA.1';
+  };
+
+

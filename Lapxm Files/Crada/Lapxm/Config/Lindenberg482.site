@@ -1,0 +1,15 @@
+//         LAP-XM Site File Template
+//         Version 2.5.0.0
+//         20Oct09 VL & JWN
+
+[SITE] 
+{
+    fAlignmentDeg	= 133.0;	         	//   antenna azimuth, +X direction, degrees decimal
+    iAltitudeM	= 104; 	        	//   site altitude, meters above sea level
+    fLatitudeN	= 52.21;	         	//   site latitude, degrees decimal, plus=North minus=South
+    sLocation	= 'Lindenberg';	 	//   address or location of radar, text, max 32 char. 
+    fLongitudeE	= 14.13;	            //   site longitude, degrees decimal, plus=East minus=West
+    iRadarID	= 1;	                  //   radar identification number
+    sStationID	= 'LIN';	            //   unique station ID, text max 32 char.
+    sStationName	= 'LIN TWP 482';	      //   name of the radar site, text, max 32 char.
+}

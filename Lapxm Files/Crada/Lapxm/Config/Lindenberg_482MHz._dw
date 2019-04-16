@@ -1,0 +1,49 @@
+// Hardware file for 482.0078 MHz LAP161 Wind Profiler
+// XM V2.5.0.0
+// Delays revised 08Jun10 for updated XM 2.5.0.0
+// 08Jun10 JWN
+
+[HARDWARE]
+{
+     fAzimuths              = {0.0, 270.0, 0.0, 270.0, 180.0, 90.0};
+     fB6tau                 = {1.04, 1.04, 1.04, 1.04, 1.04};
+     fB6tauCoding           = {1.12, 1.12, 1.12, 1.12, 1.12};
+     iCodes                 = {0,1,2,4,8,10,16,20,32};
+     iDirectionCodes        = {0,1,2,3,4,5};
+     fElevations            = {90.0, 90.0, 74.8, 74.8, 74.8, 74.8};
+     fFilterNormalizedWidth = 2.5;
+     sIpAddress             = '10.0.1.254';
+     fMaxDutyPercent        = 15.1;
+     iMaxPwNs               = 32000;
+     iMinFirstGateNs        = {4500, 5000, 6000, 9000, 10000};
+     iMinIppNs              = 39000;
+     iPostBlankNs           = {1500, 1500, 1500, 1500, 1600};
+     iPostTRNs              = {400, 400, 400, 500, 500};
+     iPreBlankNs            = 2500;
+     iPreTRNs               = 2000;
+     iPwAlgorithm           = {1, 1, 1, 1, 1};
+     iPwCodeDivotPercent    = {50, 50, 50, 50, 50};
+     iPwFallTimeNs          = {975, 975, 975, 975, 975};
+     iPwLoFreqHz            = 60000000;
+     iPwRiseTimeNs          = {975, 975, 975, 975, 975};
+     sProgramID_DSP         = 'Lapxm.DspHw_RVP9.1';
+     sProgramID_Rass        = 'Lapxm.RassSb.1';
+     fRadarFreqHz           = 482.0078e6;
+     sRadarPN               = '80060001revB';
+     sRadarSN               = '482XM0003';
+     fRC_RVP9_FreqHz        = 80.00e6;
+     iRimFreqHz             = {88000000};
+     iSwapIandQ             = 0;
+     iSwitchMs              = 500;
+     iSynchNs               = 20;
+     iSystemDelayNs         = {2575, 4025, 3775, 6800, 6300};
+     iSystemDelayCodingNs   = {2575, 4025, 3775, 6800, 6300};
+     iSystemPwNs            = {1000, 1675, 2175, 3350, 4350};
+     iTestPulsesOnPause     = 0;
+     iUseDsp                = 0;
+     iUseFarrowResampler    = 0;
+     iUseInternalRefClock   = 0;
+     iUseTxPreDistortion    = 0;
+     iUseRass               = 1;
+     iUseUDP                = 0;
+}

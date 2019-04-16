@@ -1,0 +1,81 @@
+50
+8
+11
+10
+7
+ANT temp,deg C,-2236,0.122,1,13,6,0,0,80.0,-50.0,0,0,1201,1200,0,5
+ANT +28 supply V,Volt,0,0.0123,1,13,1,0,0,30.0,25.0,0,0,1205,1204,0,0
+ANT X-Y I (X Axis),mAmp,0,2.442,1,13,2,256,0,100.0,0.0,0,0,1207,1206,0,1
+ANT X-Y I (Y Axis),mAmp,0,2.442,1,13,2,256,256,850.0,400.0,0,0,1209,1208,0,1
+ANT +delay I (No + delay),mAmp,0,2.442,1,13,3,512,0,100.0,0.0,0,0,1211,1210,0,2
+ANT +delay I (+ delay),mAmp,0,2.442,1,13,3,512,512,1200.0,800.0,0,0,1213,1212,0,2
+ANT -delay I (No - delay),mAmp,0,2.442,1,13,4,1024,0,100.0,0.0,0,0,1215,1214,0,3
+ANT -delay I (- delay),mAmp,0,2.442,1,13,4,1024,1024,1200.0,800.0,0,0,1217,1216,0,3
+ANT air pressure,kPa,0,0.0136,1,13,5,0,0,100.0,0.0,0,0,0,1218,0,4
+ANT no comm,flag,0,1,1,0,7,0,0,0.0,0.0,0,0,1250,0,3,-1
+EndOfFile
+
+NOTES:
+Line 1 = Hardware Address - Usually used to identify a 485 hardware device
+Line 2 = Number of Mux Levels - Max mux level that must be read
+Line 3 = Number of A2d Channels - Max A2d channel that must be read from all mux levels.
+Line 4 = Total number of parameters - This it all parameters including different radar state conditions
+Line 5 = Number or unique parameters - This is only Parameters that have unique names
+Line 6 - X = Information about each parameter in the following order:
+ParameterName,
+Units,
+Bias,
+Scale,
+UnitNumber,
+SubUnitNumber,
+ItemNumber,
+RadarStateMask,
+RadarState,
+HighLimit,
+LowLimit,
+FatalHigh,
+FatalLow,
+ErrorCodeHigh,
+ErrorCodeLow,
+DataType,                // 0 = Integer, 1 = Float, 2 = Bit, 3 = Communication failure flag, 4 = Log Power Formula
+                         // Log Power Formula = ( ( FloatValue * Scale) * (FloatValue * Scale) ) * Bias
+DataIndex,               // Index into MonitorHwInfo structure IntArray, FloatArray or DigitalBits
+                         // RS482 Index = ((MuxLevel*11) + A2D Channel) - Example -> MuxLevel = 3, A2D Channel = 5 Index = (3*11 + 5) = 38
+Line X = 'EndOfFile' - This tells the reader not to read any further.
+
+// The Radar State bit pattern is defined as
+XXXXXXXX | XXXXXXXX | BBBBBBBB | RTxxxOOO
+
+X - Unused
+B - Bits for beam direction (256 possible)
+O - Operational Status      (64 possible) (0 = Unloaded, 1 = Loaded, 2 = Running, 3 = Paused, 4 = Stopped)
+R - RASS ON/OFF state       (2 possible)  (0 = Off, 1 = On)
+T - TX ON/OFF state         (2 possible)  (0 = Off, 1 = On)
+
+// Radar States Masks
+RADARSTATEMASK_TX         0x000000040 - 64
+RADARSTATEMASK_XY         0x000000100 - 256
+RADARSTATEMASK_PLUSDELAY  0x000000200 - 512
+RADARSTATEMASK_MINUSDELAY 0x000000400 - 1024
+RADARSTATEMASK_VERTICAL   0x000000600 - 1536
+RADARSTATEMASK_RASS       0x000000080 - 128
+RADARSTATEMASK_TX_XY      0x000000140 - 320
+ 
+// Radar States
+RADARSTATE_TXON         0x000000040 - 64
+RADARSTATE_TXOFF        0x000000000 - 0
+RADARSTATE_X            0x000000000 - 0
+RADARSTATE_Y            0x000000100 - 256
+RADARSTATE_PLUSDELAY    0x000000200 - 512
+RADARSTATE_NOPLUSDELAY  0x000000000 - 0
+RADARSTATE_MINUSDELAY   0x000000400 - 1024
+RADARSTATE_NOMINUSDELAY 0x000000000 - 0
+RADARSTATE_VERTICAL     0x000000600 - 1536
+RADARSTATE_NOVERTICAL   0x000000000 - 0
+RADARSTATE_RASSON       0x000000080 - 128
+RADARSTATE_RASSOFF      0x000000000 - 0
+RADARSTATE_TXON_X       0x000000040 - 64
+RADARSTATE_TXOFF_X      0x000000000 - 0
+RADARSTATE_TXON_Y       0x000000140 - 320
+RADARSTATE_TXOFF_Y      0x000000100 - 256
+

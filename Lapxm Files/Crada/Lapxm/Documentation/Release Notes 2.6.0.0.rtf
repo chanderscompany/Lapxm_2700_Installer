@@ -1,0 +1,1462 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033\deflangfe1033{\fonttbl{\f0\fmodern\fprq1\fcharset0 Courier New;}{\f1\froman\fprq2\fcharset0 Times New Roman;}{\f2\fnil\fprq1\fcharset0 Courier New;}}
+{\colortbl ;\red0\green0\blue0;\red0\green0\blue255;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\nowidctlpar\b\f0\fs32 LAP-XM\super\'ae\nosupersub  Release Notes\par
+\b0\fs20 Copyright 1997-2012 Vaisala Inc.\par
+All rights reserved.\par
+\par
+-----------------------------------------------------------\par
+-----------------------------------------------------------\par
+\b\fs28 ***** Version 2.6.0.0 *****\fs24\par
+\b0\i\fs20 Feb 2012\par
+\i0\par
+Version 2.6.0.0 is a full release of the LAP-XM\super\'ae\nosupersub  software. All files required for this installation and operation are contained within this release.\par
+\par
+\par
+-----------------------------------------------------------\par
+-----------------------------------------------------------\par
+\b Computer System Requirements\b0 :\par
+\par
+\ul\i Processor\ulnone\i0 :\par
+\pard\nowidctlpar\fi720 Intel\super\'ae\nosupersub  Core\super tm\nosupersub  2: dual-core or quad-core (recommended)\par
+Pentium 4 (minimum)\par
+\pard\nowidctlpar\ul\i RAM\ulnone\i0 :\par
+\pard\nowidctlpar\fi720 4 GB (recommended)\par
+2 GB (minimum)\par
+\pard\nowidctlpar\ul\i Operating System partition size\ulnone\i0 :\par
+\pard\nowidctlpar\fi720 12 GB operating system partition (minimum)\par
+\pard\nowidctlpar\ul\i Ethernet communications\ulnone\i0 :\par
+\pard\nowidctlpar\li720 2x Gigabit Ethernet ports (minimum) required for digital IF receiver employing RVP910\par
+1x 100 Megabit Ethernet ports (minimum) required for baseband (ISA) and PCI digital IF receiver employing PIRAQ-III\par
+\pard\nowidctlpar\ul\i USB ports\ulnone\i0 :\par
+\pard\nowidctlpar\fi720 1x USB 2.0 port (minimum) required for all configurations\par
+2x USB 2.0 ports (minimum) required for configurations with system monitor\par
+\pard\nowidctlpar\ul\i Accessory drives\ulnone\i0 :\par
+\pard\nowidctlpar\fi720 DVD-ROM Drive (minimum)\par
+DVD/RW (recommended)\par
+3.5" Diskette Drive (recommended)\par
+\pard\nowidctlpar\lang1053\ul\i Video\ulnone\i0 :\par
+\pard\nowidctlpar\fi720 SVGA 1024 x 768 (minimum)\par
+\pard\nowidctlpar\lang1033\ul\i Operating System\ulnone\i0 :\par
+\pard\nowidctlpar\fi720 Windows 7 with service pack 1 \endash  32 bit or 64 bit\par
+Windows XP with service pack 3\par
+\pard\nowidctlpar\ul\i Internet Brower\ulnone\i0 : (optional)\par
+\pard\nowidctlpar\fi720 Microsoft Internet Explorer 6.x or higher on XP\par
+Microsoft Internet Explorer 9.x or higher on Windows 7\par
+\pard\nowidctlpar\par
+For a LAP\super\'ae\nosupersub  profiler using the RVP9 digital IF receiver, the computer system  must provide at least two Gigabit Ethernet ports.\par
+\par
+For a LAP\super\'ae\nosupersub  profiler using the PIRAQ-III PCI digital IF receiver, the computer system  must provide at least four contiguous unused full-length 32-bit PCI slots (with both +5.0 and +3.3 VDC present) for the signal processing boards. If the system has RASS, then an additional PCI-33 slot must also be available.\par
+\par
+For a LAP\super\'ae\nosupersub  profiler using a baseband conversion receiver using the DSP-32C DSP, etc., the computer system  must provide at least four contiguous unused full-length ISA slots for the signal processing boards. If the system has RASS, then an additional ISA slot must also be available.\par
+\par
+------------------------\par
+\b\fs24 Summary of major changes and new features\b0\fs20\par
+\par
+\b Windows 7 OS\par
+\b0  - Runs on Windows 7 and Windows XP.\par
+\par
+\pard\nowidctlpar\li540\par
+\pard\nowidctlpar ------------------------\par
+\b\fs24 New Hardware Modules\b0\fs20\par
+\par
+\b Lapxm_RASS \par
+ - \b0 Due to changes in Windows 7, Lapxm can no longer communicate with the sound card as it has in the past. A new module that runs as a service was developed using DirectX9 to provide the same functionality.\b\par
+\b0\par
+\b Tester_Hardware_STXX\par
+\b0 - Tester for use in debugging ATRAD STXX amplifier systems.\par
+\pard\nowidctlpar\fi-270\li540\par
+\pard\nowidctlpar ------------------------\par
+\b\fs24 New Process Modules\fs20\par
+\b0\par
+\b Lapxm_QC_WeberWuertz_MomWind \b0\endash  (under development and testing)\b\par
+- \b0 QC module developed by Coy Chanders and Dan Gottas based on the Weber Wuertz Fortran algorithm.\b\par
+\b0\par
+\b Lapxm_Status_CMA \b0\endash  (under development and testing)\par
+- Creates a radar status file required by CMA.\par
+\par
+\b Lapxm_Archive_SpecMom_CMA \b0\endash  (under development and testing)\par
+- Creates a Spectral and Moments data output file required by CMA.\par
+\par
+\b Lapxm_Archive_CNS_CMA \b0\endash  (under development and testing)\par
+- Creates a Winds data output file required by CMA.\par
+\par
+\par
+------------------------\par
+\b\fs24 New Base Modules\b0\fs20\par
+\b\par
+\b0 None\par
+\par
+------------------------\par
+\b\fs24 Modified modules\par
+\par
+\fs20 Archive_Cns_Text \par
+\pard\nowidctlpar\fi-270\li270\tx270\b0 -\tab Changed the beam order of line 6 to match line 9.\par
+\pard\nowidctlpar\fi-270\li270 -\tab Now orders the beams so they are always vertical, oblique (smallest azimuth), oblique (larger azimuth), ...\par
+-\tab Now prints out QC values for UVW or for each beam direction based on cDataType being either "_WeberWuertzUVW" or "_WeberWuertz".\par
+\pard\nowidctlpar\par
+\b Lapxm_CN2\par
+\pard\b0\f1 - Updated Cn2 parameters to use configuration object instead of *.ini file\par
+- Removed single cycle wind (now handled by consensus)\par
+- Outputs Cn2 values via the Lapxm_DataStructure to other module\par
+\pard\nowidctlpar - Updated Cn2 calculation\f0\par
+\par
+\b Lapxm_Console \par
+\pard\nowidctlpar\fi-270\li270\b0 - Corrected crashing bug when replaying data and writing it to a file when the data set does not contain moments data. \par
+\pard\f2\fs17 -  Correctly displays interlaced data from the FMCW.\par
+\pard\nowidctlpar\f0\fs20\par
+\b Lapxm_DspHW_PiraqIII\par
+\b0 - Corrected bug that allowed data from a partial dwell to be passed down stream after the dwell was aborted when in simulation data mode - iUseDSP=0. This is not an issue in operational radars, only in testing.\par
+\par
+\b Lapxm_DwellEngine\par
+\b0 - Added History mode that allows a configuration file to reprocess data from the past before starting to acquire new data from the radar. This allows the WeberWuertz QC module to pre-fill with historical data so that results will be more accurate when data acquisition starts.\par
+\par
+\cf1\b Lapxm_DxpHw_RVP9\par
+\pard\nowidctlpar\fi-270\li270\tx270\b0 -\tab Corrected Oversampling check to work with sample clock rates other then 80MHz.\par
+\pard\nowidctlpar\fi-270\li270 -\tab TxDAC updated to have 'Extended' modes where the front and end of the pulse is extended for use with the 1290.\par
+-\tab Increased timeout value so that Win7 would not occasionally timeout waiting for Ethernet data transfers to complete.\par
+-\tab Corrected MaxDutyCycle check.\par
+-\tab Beam direction now correctly uses the value in the iDirectionCodes array in the hardware file.\par
+-\tab The IPP is now restricted to an even multiple of 4 sample clock periods. \par
+-\tab The Sample Clock now uses fRC_RVP9_FreqHz from the hardware file instead of always being 80Mhz\par
+\pard\nowidctlpar\cf0\par
+\b Lapxm_Gabor\par
+\b0 - Added configuration parameter switching to better handle bird migrations.\par
+\par
+\b Lapxm_Isapi_Home\par
+\b0 - Removed remote IP address from the naming of the dwelldisplay jpeg images. \par
+\par
+\b Lapxm_Main\par
+\pard\nowidctlpar\fi-270\li270\tx270\b0 -\tab Added \ldblquote Start Delay\rdblquote  parameter to registry so that the Monitor MSDE database would have time to start up before Lapxm tries to put data into it. The delay is adjustable and defaulted to 5 seconds.\par
+\pard\nowidctlpar\par
+\b Lapxm_MeltingLayer\par
+\b0 - Changed the upper limit of parameter iQcMaxRainAboveBb to 500.\par
+\par
+\b Lapxm_Moments_MPP\par
+\b0 - Corrected issue that caused higher altitude chains not to be identified correctly.\par
+- Added configuration parameter switching to better handle bird migrations.\par
+- Added Bird minSNR/minWidth test.\par
+- Added rain and snow check.\par
+- Handles unused parameters correctly.\par
+- Corrected issue that causes a crash when a vertical beam is not first.\par
+- Corrected issue that causes a crash when there are no peaks to choose from.\par
+\pard\nowidctlpar\li390\par
+\pard\nowidctlpar\b Lapxm_Monitor_Atrad_STXX\par
+\b0 - Corrected issue that causes a crash on 2 amp system.\par
+- Mask off bits 3-15 of the status code due to a change in firmware. \par
+- Bit 14 is now used to indicate triggering.\par
+- Updated to ignore distribution units\par
+\par
+\b Lapxm_NetCDF_MMCR_SpecMom\par
+\b0  - \f2\fs17 Corrected issue with semaphores that protect the non-thread safe NetCDF dll for the MMCR radar\b\f0\fs20\par
+\par
+SpectraRoutines::FindNoiseLevel() (Lapxm_Moments, Lapxm_Moments_MPP_Eth)\par
+\b0  - \f2\fs17 Changed numerator from iDataLength to (iDataLength -1)\f0\fs20\par
+\b\par
+Tester_Hardware_DLP232\par
+\b0  - Changed the DLP232 tester from a C# project to a C++ project\par
+\par
+------------------------\par
+\b\fs24 Classes/Library changes\par
+\b0\fs20\par
+Upgraded SoftBUFR to version 5.2\par
+\par
+Updated FTDI drivers for the DLP232 monitoring devices to 2.8.24.0 WHQL 64bit\par
+\par
+\par
+-----------------------------------------------------------\par
+-----------------------------------------------------------\par
+\b\fs28 ***** Version 2.5.0.0 *****\fs24\par
+\b0\i\fs20 June-2010\par
+\i0\par
+Version 2.5.0.0 is a full release of the LAP-XM\super\'ae\nosupersub  software. All files required for this installation and operation are contained within this release.\par
+\par
+\par
+-----------------------------------------------------------\par
+-----------------------------------------------------------\par
+\b Computer System Requirements\b0 :\par
+\par
+\ul\i Processor\ulnone\i0 :\par
+\pard\nowidctlpar\fi720 Intel\super\'ae\nosupersub  Core\super tm\nosupersub  2: dual-core or quad-core (recommended)\par
+Pentium 4 (minimum)\par
+\pard\nowidctlpar\ul\i RAM\ulnone\i0 :\par
+\pard\nowidctlpar\fi720 4 GB (recommended)\par
+2 GB (minimum)\par
+\pard\nowidctlpar\ul\i Operating System partition size\ulnone\i0 :\par
+\pard\nowidctlpar\fi720 12 GB operating system partition (minimum)\par
+\pard\nowidctlpar\ul\i Ethernet communications\ulnone\i0 :\par
+\pard\nowidctlpar\li720 2x Gigabit Ethernet ports (minimum) required for digital IF receiver employing RVP910\par
+2x 100 Megabit Ethernet ports (minimum) required for baseband (ISA) and PCI digital IF receiver employing PIRAQ-III\par
+\pard\nowidctlpar\ul\i USB ports\ulnone\i0 :\par
+\pard\nowidctlpar\fi720 1x USB 2.0 port (minimum) required for all configurations\par
+2x USB 2.0 ports (minimum) required for configurations with system monitor\par
+\pard\nowidctlpar\ul\i Accessory drives\ulnone\i0 :\par
+\pard\nowidctlpar\fi720 DVD-ROM Drive (minimum)\par
+DVD/RW (recommended)\par
+3.5" Diskette Drive (recommended)\par
+\pard\nowidctlpar\lang1053\ul\i Video\ulnone\i0 :\par
+\pard\nowidctlpar\fi720 SVGA 1024 x 768 (minimum)\par
+\pard\nowidctlpar\lang1033\ul\i Operating System\ulnone\i0 :\par
+\pard\nowidctlpar\fi720 Windows XP with service pack 3\par
+\pard\nowidctlpar\ul\i Internet Brower\ulnone\i0 :\par
+\pard\nowidctlpar\fi720 Microsoft Internet Explorer 6.x or higher\par
+\pard\nowidctlpar\par
+For a LAP\super\'ae\nosupersub  profiler using the PIRAQ-III PCI digital IF receiver, the computer system  must provide at least four contiguous unused full-length 32-bit PCI slots (with both +5.0 and +3.3 VDC present) for the signal processing boards. If the system has RASS, then an additional PCI-33 slot must also be available.\par
+\par
+For a LAP\super\'ae\nosupersub  profiler using a baseband conversion receiver using the DSP-32C DSP, etc., the computer system  must provide at least four contiguous unused full-length ISA slots for the signal processing boards. If the system has RASS,then an additional ISA slot must also be available.\par
+\par
+------------------------\par
+\b\fs24 Summary of major changes and new features\b0\fs20\par
+\par
+\b WP-RVP910 Digital IF\par
+\pard\nowidctlpar\li540\b0 The WP-RVP910 is an FPGA based digital IF signal processing module that replaces PIRAQ-III for use in all Vaisala wind profilers (LAP\super\'ae\nosupersub -3000, LAP\super\'ae\nosupersub -8000, LAP\super\'ae\nosupersub -12000, LAP\super\'ae\nosupersub -16000 and LAP\super\'ae\nosupersub 161). This initial release provides the same functionality as the PIRAQ-III based digital IF signal processing, but the restructuring of the FPGA from dynamic flash allows for future expandability of its feature set.\par
+\pard\nowidctlpar\par
+\b Lehmann-Teschke Intermittent Clutter Reduction module\par
+\pard\nowidctlpar\li540\b0 This module implements an advanced method for the suppression of intermittent clutter in wind profiler time-series data using a Gabor frame expansion and statistical filtering.\par
+\par
+\pard\nowidctlpar\b MonitorGraph\super TM\nosupersub  integrated into the LAP-XM\super\'ae\nosupersub  Console\par
+\pard\nowidctlpar\li540\b0 An improved version of MonitorGraph\super TM\nosupersub  used to graphically display system monitor data that are stored in the LAP-XM\super\'ae\nosupersub  monitor database has been integrated into the LAP-XM\super\'ae\nosupersub  Console. MonitorGraph\super TM\nosupersub  provides simultaneous display of multiple two-dimensional graphs of any monitor parameter with associated system state.\par
+\par
+\par
+\pard\nowidctlpar ------------------------\par
+\b\fs24 New Hardware Modules\b0\fs20\par
+\par
+\b Lapxm_DspHw_RVP9.dll\par
+\pard\nowidctlpar\fi-360\li630\tb630\b0 -\tab This hardware interface module arbitrates control and data communication with the RVP-910 digital IF hardware using a dedicated Gigabit Ethernet port.\par
+\pard\nowidctlpar\fi-270\li540\par
+\par
+\pard\nowidctlpar ------------------------\par
+\b\fs24 New Process Modules\fs20\par
+\b0\par
+\b Lapxm_Archiver_TSMW_NetCDF.dll\b0\par
+\pard\nowidctlpar\fi-360\li600\tx600 -\tab This archiving module provides a Vaisala proprietary NetCDF data file output for time-series, spectra, moments and consensus winds.\par
+\pard\nowidctlpar\par
+\b Lapxm_Monitor_Data.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab The Monitor Data Module is a standard data process module that provides two new data output options.\par
+\tab 1) Calculates the mean noise from the incoming Moments data and writes it to the Monitor database. This new value can then be viewed via the Monitor screen in the Console.\par
+\tab 2) Retrieves the last Forward Power measurement written to the Monitor database and adds it to the out-going Moments LapxmDataStructure. This value can then be written to the PopArchive file along with TS, Spec and Moments.  \par
+\pard\nowidctlpar\par
+\b Lapxm_Gabor.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab This module implements an advanced method for the suppression of intermittent clutter in wind profiler time-series data. The method is intended especially for profilers that experience significant problems during the seasonal bird migration. The module analyzes time series data using the discrete Gabor frame expansion, which forms a time-frequency presentation of the signal. The intermittent clutter signals can be separated and removed from the Gabor frame expansion using a statistical filtering technique. The algorithm has been developed and published by V. Lehmann and G. Teschke (2008): \ldblquote Advanced Intermittent Clutter Filtering for Radar Wind Profiler: Signal Separation through a Gabor Frame Expansion and its Statistics\rdblquote , Annales Geophysicae, 26, pp. 759-783.\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_CMA.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab New consensus data archive module that uses China Meteorological Administration (CMA) proprietary format.\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_SpecMom_CMA.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab New spectra and moments data archive module that uses China Meteorological Administration (CMA) proprietary format.\par
+\pard\nowidctlpar\par
+\par
+------------------------\par
+\b\fs24 New Base Modules\b0\fs20\par
+\b\par
+Lapxm_Status_XML.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab A message module for archiving and distributing LAP-XM\super\'ae\nosupersub  operational status information in XML format.\par
+\pard\nowidctlpar\par
+\b Lapxm_Monitor_HwInterface_PowerMeter_E4417A.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab A power monitor module communicates with an Agilent \cf1 E4417A power meter to acquire \cf0 forward and reflected peak power values \cf1 and \cf0 place them into the monitor data record. From the forward and reflected peak power values, a VSWR value may be calculated and it may be placed into the monitor data record.\par
+\pard\nowidctlpar\par
+\b Lapxm_Monitor_HwInterface_DLP232.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab The DLP232 module provides a USB communications interface to LAP-XM\super\'ae\nosupersub  monitor modules. It is an alternative to the RS-485 communications interface.  \par
+\pard\nowidctlpar\par
+\par
+------------------------\par
+\b\fs24 Modified modules\b0\fs20\par
+\par
+\cf1\b Lapxm_Archive_Cns_Bufr.dll\par
+\pard\nowidctlpar\fi-360\li630\b0 -\tab Updated to use latest version of the Northern Lighthouse SoftBufr library (ver 4.2.0)\cf0\b\par
+\pard\nowidctlpar\par
+Lapxm_Archive_Cns_Text.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected invalid values being recorded on line 8 in the header file. Now writes line 8 in the CNS header correctly when there is no vertical beam in the measurement and writes line 8 correctly when only vertical beam is being measured.\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_XML.dll\b0\par
+\pard\nowidctlpar\fi-360\li600\tx600 -\tab Added new parameters \i SNR\i0  and \i spectral width\i0  to the XML message to accommodate changes in AviMET 5.1.\par
+\pard\nowidctlpar\par
+\b Lapxm_Background_Audio.dll\par
+\pard\nowidctlpar\fi-270\li540\b0 -\tab Corrected logic that detects RASS and wind modes.\b\par
+\pard\nowidctlpar\par
+Lapxm_BoundaryLayer.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected indexing issue that sometimes caused a system crash when the first gate data was missing due to a non realistic input source.\par
+\pard\nowidctlpar\par
+\b Lapxm_Calibration_MMCR.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Changed indexing to correctly read the second receiver from the LapxmDataStructure.\par
+\pard\nowidctlpar\par
+\b Lapxm_Configuration.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added a new method that returns a Dwell Mode list of all modes in the configuration file.\par
+\pard\nowidctlpar\par
+\b Lapxm_Consensus_WindTemp.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected defect which caused the pData array to not get deleted with data products flagged with iEnable=0. Now the pData array is freed in StoreData method when iEnable=0.\par
+-\tab Added a feature to write the consensus file immediately after the last dwell completes instead of waiting until the next dwell completes. Consensus changes for 1 dwell cycle winds with 30min QC. Added parameter iConsenseOnBeamDirection. AddToCnsQcPeriodMin functionality added to ConsenseOnBeam.\par
+-\tab Corrected issue were beam specific results ingested missing values into a weighted average causing invalid values in the CNS ouptut.\par
+\pard\nowidctlpar\par
+\b Lapxm_DspHw.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected issue with the POP DSP-32C DSP that caused the time series data to be incorrect when using ICRA.\par
+-\tab\cf1 Removed unnecessary coherent integrator\cf0  adder overflow error.\par
+\pard\nowidctlpar\par
+\b Lapxm_DspHw_PiraqIII.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added the ability to switch DSP code version on a dwell by dwell basis.\par
+-\tab The DSP code version is now read from the hardware file. Choices are Rev "-" = piraq_dsp_code_rev-.out, Rev "abc" = piraq_dsp_code_revabc.out and Rev "mmcr" = piraq_dsp_code_mmcr.out.\par
+-\tab Added additional sequential range gate groups corresponding to the sequential output frequencies from DDS2 for range imaging (RIM).\par
+\pard\nowidctlpar\par
+\b Lapxm_DwellControl_AntennaRelayCount.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab This update version reads in an Init file allowing the user to customize the number and types of relays used. The old version was hard coded for 26 relays.\par
+\pard\nowidctlpar\par
+\b Lapxm_DwellEngine.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected a defect that allowed the Software Watchdog to reboot the PC when LAP-XM\super\'ae\nosupersub  was running in the IDLE mode for more then 5 minutes.\par
+-\tab When RASS is running and LAP-XM\super\'ae\nosupersub  goes into the IDLE state, the RASS sound source is now turned off.\par
+-\tab Added high and low amplifier control for LAP\super\'ae\nosupersub 161 system.\par
+\pard\nowidctlpar\par
+\b Lapxm_ManageDiskSpace.exe\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added the registry parameter "Delete Files Older Than X Days".\par
+\pard\nowidctlpar\par
+\b Lapxm_MessageLogger.dll\par
+\pard\nowidctlpar\fi-390\li630\b0 -  \tab The module now filters out repeat error messages until the "error" status is cleared. \cf1 This functionality can be disabled by setting the following registry entry: HKEY_LOCAL_MACHINE/SOFTWARE/CRADA/LAPXM/MESSAGELOGGER/DisableFiltering = Yes\cf0\par
+\pard\nowidctlpar\par
+\b Lapxm_Moments.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added the following features to the Moments module to improve the accuracy of the noise calculation.\par
+\pard\nowidctlpar\fi-360\li990 1) Interpolates across the three points centered around DC\par
+2) Filters out values smaller then .00001 in the noise calculation\par
+3) Filters out the three points around DC in the noise calculation\par
+4) Noise calculation changed to not use the DC point nor the point on either side when windowing\par
+\pard\nowidctlpar\fi-360\li600\tx600 -\tab Added optional parameters iUseThresholds, fMinSnr, fMaxSnr, fMinWidth, fMaxWidth and iMaxNumTrials for rejecting invalid spectral peaks, such as radio frequency interference.\par
+-\tab Added optional parameter fMaxSuspectWidth for rejecting wide peaks that have been flagged as "suspect" by the Gabor module.\par
+\endash\tab Added SNR and spectral width threshold to the moments data output.\par
+-\tab Added forward power measurement to the moments data output.\par
+\pard\nowidctlpar\par
+\b Lapxm_Moments_MPP_ETH.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Now correctly handles the case when only a section of the spectral array is used for estimating moments. This occurs when iWindDopPtNum < iNpts in the DWELLMODES section of the configuration file.\par
+ -\tab The ground clutter detection routine was changed to be identical to the procedure used with the Moments module. The ground clutter part of the spectrum is removed before applying the moments estimation.\par
+\pard\nowidctlpar\par
+\b Lapxm_Monitor_HwInterface_Ups_Snmp.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab The MGE 66102 Rev. G firmware no longer supports the hardcoded MIBs in the SNMP class for reading the values of INPUT LINE VOLTAGE, UPS OUTPUT LINE VOLTAGE and UPS OUTPUT PERCENT LOAD. A new "iVersion" level was added (4) that causes the application to read an initialization file that contains the new MIBs associated with monitored values. A new parameter "sPathFileName" was added to point to an initialization file containing user defined MIBs.\par
+\pard\nowidctlpar\par
+\b Lapxm_NetCDF_MMCR_SpecMom.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Changed Indexing to correctly read the second receiver from the LapxmDataStructure.\par
+-\tab Now records multiple dwells per second to the NetCDF file. Corrected a defect where very fast dwells that are a fraction of second each caused the NetCDF file to only recording one of the dwells per second. The problem being the timestamp was only accurate to one second so the NetCDF fle is over-writing a dwell mulitiple times until the time stamp is increased to the next second. This was corrected by using iCount from the LapxmDataStructure instead of the iURI counter of the NetCDFFile.\par
+\pard\nowidctlpar\par
+\b Lapxm_QC_WeberWuertz.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected issue where missing values were accepted into vertical velocity check if iAddToCnsQcMin > 0 in Consensus module. This would occur when trying to use vertical velocity check on data that used the iAddToCnsQcMin parameter in Consensus processing.\par
+\pard\nowidctlpar\par
+\b Lapxm_RadarControllerHw.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added generation of sequential output frequencies from DDS2 for range imaging (RIM).\par
+\pard\nowidctlpar\par
+\b Lapxm_RadarState.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added the ability to track the state of T/R function units on the LAP\super\'ae\nosupersub 161.\par
+\pard\nowidctlpar\tx600\par
+\b Lapxm_RassSB.dll\par
+\pard\nowidctlpar\fi-360\li630\tx600\b0 -\tab Changed timing of state change into registry to beginning of audio signal ramp start.\par
+\pard\nowidctlpar\par
+\b Lapxm_RassHw.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab The module now sets the RASS source file (old or new) based on parameter the "iRassDspDevRev" found in the hardware file. The choices are "new" = rass_random_new or rass_sweep_new and "old" = rass_random_old or rass_sweep_old. If parameter is not set it defaults to "old". The random or sweep mode is selected in the mode section of the configuration file.\par
+\pard\nowidctlpar\par
+\b Lapxm_RemoteCommand.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added new commands 'ClearMessageLogErrors' and 'ClearMonitorErrors'.\par
+\pard\nowidctlpar\par
+\b Lapxm_TS_Stats.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Records TimeSeries values that exceed a threshold. This module is used to determine if the A/D converters are clipping.\par
+\pard\nowidctlpar\par
+\b Lapxm_Wxt510.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected a parsing error and a parameters limits check when reading WXT510 values. The WXT510 failed to measure temperatures when they were below 0 Celsius (parsing error), and when the air pressure was above 900.0H (parameter limits).\par
+\pard\nowidctlpar\par
+\lang1036\b piraq_dsp_code_nonci_nocode.out\par
+\pard\nowidctlpar\fi-360\li600\tx600\lang1033\b0 -\tab Removed NCI and Coding loops to increase the speed so that the MMCR can run in a dual polarization mode.\par
+\pard\nowidctlpar\par
+\b RadarController_Rev2_Driver.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added generation of sequential output frequencies from DDS2 for range imaging (RIM).\par
+-\tab Added a feature to prevent the timing generator from stopping in the middle of a pattern when a 'stop' is requested. This is accomplished by adding an infinite loop at the end of the pattern, removing the original jump, allowing the TG to get stuck in the infinite loop, and then resetting.\par
+\pard\nowidctlpar\par
+\b Tester_Hardware_Piraq_RC.exe\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added additional sequential range gate groups corresponding to the sequential output frequencies from DDS2 for range imaging (RIM).\par
+\pard\nowidctlpar\par
+\b Tester_Hardware_Ups_Snmp.exe\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab See desription for "Lapxm_Monitor_HwInterface_Ups_Snmp.dll".\par
+\pard\nowidctlpar\par
+\par
+------------------------\par
+\b\fs24 Classes/Library changes\par
+\b0\fs20\par
+\b Spectra Routines\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Eliminate moments RASS iDcFilter crash \par
+-  Use RASS points in the noise calculation\par
+\pard\nowidctlpar\par
+\b LapPopDataFile Class\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected time stamp issue in old 1994 Pop files.\par
+\pard\nowidctlpar\par
+\b LapTools Class\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added method to create "Hard Link" file associates in LAP-XM\super\'ae\nosupersub  archiving modules. \par
+\pard\nowidctlpar\par
+\par
+-----------------------------------------------------------\par
+-----------------------------------------------------------\par
+\b\fs28 ***** Version 2.4.1.0 Update *****\fs24\par
+\b0\i\fs20 Nov-2007\par
+\i0\par
+Version 2.4.1.0 Update is an update release for the LAP-XM\super\'ae\nosupersub  software.\par
+This update must be applied to an existing LAP-XM\super\'ae\nosupersub  2.4.0.0 full installation.\par
+\par
+\par
+------------------------\par
+\b\fs24 Summary of major changes and new features\b0\fs20\par
+\par
+\b Lapxm_WXT510 \par
+\pard\nowidctlpar\li540\b0 New module to communicate with Vaisala WXT510 weather transmitter. The WXT510 data can be integrated into the radar consensus data stream as the initial data point. \par
+\pard\nowidctlpar\par
+\par
+------------------------\par
+\b\fs24 Modified modules\b0\fs20\par
+\par
+\b Lapxm_Archive_Cns_BUFR\tab     \par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Recompiled due to changes in the Cns_pData_Array class\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_Com\tab     \par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Updated to handle WXT510 data\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_Db\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Message is now: Database has duplicate values. Delete or remove the existing database file before overwriting.\par
+-  Updated to handle WXT510 data\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_StiCdf\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab The altitude column in StiCdf 1.1 format files corrected so last two digits of heights are no longer truncated\par
+-\tab Updated to handle WXT510 data\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_Text\tab     \par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Updated to handle WXT510 data\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_Xm\b0 l\par
+\pard\nowidctlpar\fi-360\li600\tx600 -\tab Fixed the bug that causes iDebug messages to be shown also when iDebug is set to 0.\par
+\pard\nowidctlpar\par
+\b Lapxm_BoundaryLayer\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Now reads the StationID from the incoming LapxmDataStructure. This way the StationID is retained when reprocessing data on a PC with a different StationID\par
+\pard\nowidctlpar\par
+\b Lapxm_Cn2\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Now automatically creates the output directory that is declared in the CN2.ini file\par
+\pard\nowidctlpar\par
+\b Lapxm_Consensus_WindTemp\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added AddToAvgMin*60 to the first arriving timestamp when scheduling consensus. This will delay first consensus so that there are no duplicate time stamps, also improving the quality of first consensus.\par
+-\tab WXT510 message now optionally available in data table.\par
+-\tab Corrected an error in the CustomWorkerThread::Initialize method that caused Lapxm_Main to shutdown when trying to employ the running consensus feature. Some optional parameters were being read from the configuration file in the wrong order.\par
+-\tab Corrected an error that caused Lapxm_Main to shutdown when iConsenseOnMinute configuration parameter list is invalid and has -1 as the last value. Improved the validity checking routine for the iConsenseOnMinute parameter.\par
+\pard\nowidctlpar\par
+\b Lapxm_Console\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Now updates Console display when only Spectra or Moments is mapped into the ConsoleDisplay module and both Spectra and Moments are selected in the Console Radar Display Options \par
+-\tab Added Longitude, Latitude, and Altitude to the Console Display. \par
+-\tab Added Black&White display option\par
+-\tab Peaks in the contour graph and moment crosses now align correctly with the gate height\par
+-\tab No longer subtracts the smallest value from the Spectral data when normalizing. Corrected an error for finding the largest value when using Log data.\par
+-\tab Min/Max now displays the data on a fixed scale between the values set by Min/Max. The range has been expanded to 0 to 120dB\par
+-\tab SNR plot now diplays data ranging from -30 to 90dB\par
+-\tab The log scale on the Stacked Plot now displays the data correctly\par
+-\tab Stacked plot now Normalizes the data after the DC point has been removed\par
+-\tab The Stacked and Contour plots now show the velocity labels at both edges of the plot when zoomed in to the point that the normal labels are not shown\par
+-\tab SNR plot now uses the next highest gate when zoomed in to draw the last section of the plot\par
+-\tab Receiver number in the Options dialog box now correctly reflects changes made via the up and down arrow keys\par
+-\tab SNR plot labels now adjust correctly to prevent overlapping when the plot is narrow\par
+-\tab (LapPopDataFile) Corrects 'RASS Power' values by reading 'RASS Noise' value from the correct location.\par
+-\tab (LapPopDataFile) Now reads 'System Delay' from the Pop Data File from the 'sHeader.pop.radar[0].par[ipar].delay' instead of from the 'sHeader.pop.radar[0].rxbw[][]' array. This is duplicate information that is not always correct.\par
+-\tab (LapPopDataFile) StationID is now appended to StationName and stored in the LAP-XM\super\'ae\nosupersub  data file in the StationName location.\par
+-\tab When the screen is reduced in height, scroll buttons appear so one can view all Dwell mode parameters.\par
+\pard\nowidctlpar\par
+\b Lapxm_ConsoleDisplay\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Now updates Console display when only Spectra or Moments is mapped into the ConsoleDisplay module and both Spectra and Moments are selected in the Console Radar Display Options \par
+\pard\nowidctlpar\par
+\b Lapxm_DspHw\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab The ability to obtain TimeSeries data from the Pop Analog hardware DSP card has been added. Previously only one spectral average of TimeSeries data along with Spectra and Moments could be obtained.\par
+\pard\nowidctlpar\par
+\b Lapxm_DspHw_PiraqIII\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab The default value for iFilterThreshold has been changed from 0 to 300\par
+\pard\nowidctlpar\par
+\b Lapxm_Main\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Now auto-restarts if the UPS stops data acquisition. When the UPS stops data acquisition of the radar PC due to the loss of battery power, a new registry state called 'UPS_Shutdown' is written into the 'radar state' key value. When power is restored Lapxm_Main then knows what state to bring the system back into. \par
+\pard\nowidctlpar\par
+\b Lapxm_MeltingLayer\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Now reads the StationID from the incoming LapxmDataStructure. This way the StationID is retained when reprocessing data on a PC with a different StationID.\par
+-\tab Now writes log files to the directory pointed to by the parameter 'sLogPath'\par
+\pard\nowidctlpar\par
+\b Lapxm_Moments\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab The denominator in the SNR equationis now lNumPoints instead of (lNumPoints-1)\par
+-\tab (Classes/SpectraRoutines) SpectraRoutines class now uses RASS+wind points in noise calculation whenever RASS is present.\par
+\pard\nowidctlpar\par
+\b Lapxm_Moments_MPP_ETH\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab The denominator in the SNR equationis now lNumPoints instead of (lNumPoints-1)\par
+-\tab (Classes/SpectraRoutines) SpectraRoutines class now uses RASS+wind points in noise calculation whenever RASS is present.\par
+\pard\nowidctlpar\par
+\b Lapxm_Monitor_HwInterface_Ups_Snmp\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab When the UPS loses main power and the battery becomes critically low, the system now stops acquiring data and waits for either the battery power to run out or for the main power to be restored. Previously, this module would send a command to the UPS to shut off in two minutes. Then it would shut down the PC. This feature has been removed due to the inability to buy a UPS that understands these SNMP messages.\par
+-\tab (Classes/UPS_SNMP) Updated to work with both the old MGE 66244 SNMP card and the new MGE 66102 SNMP card.\par
+\pard\nowidctlpar\par
+\b Lapxm_Playback\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab (LapPopDataFile) Corrects 'Rass Power' values by reading 'Rass Noise' value from the correct location.\par
+-\tab (LapPopDataFile) Now reads 'System Delay' from the Pop Data File from the 'sHeader.pop.radar[0].par[ipar].delay' instead of from the 'sHeader.pop.radar[0].rxbw[][]' array. This is duplicate information that is not always correct.\par
+-\tab (LapPopDataFile) StationID is now appended to StationName and stored in the LAP-XM\super\'ae\nosupersub  data file in the StationName location.\par
+\pard\nowidctlpar\par
+\b Lapxm_PopArchiver\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added warning message when iPopCompliant and iWriteTimeSeries are both selected. In this case, the user cannot reprocess the Time Series data\par
+-\tab (LapPopDataFile) Corrects 'Rass Power' values by reading 'Rass Noise' value from the correct location.\par
+-\tab (LapPopDataFile) Now reads 'System Delay' from the Pop Data File from the 'sHeader.pop.radar[0].par[ipar].delay' instead of from the 'sHeader.pop.radar[0].rxbw[][]' array. This is duplicate information that is not always correct.\par
+-\tab (LapPopDataFile) StationID is now appended to StationName and stored in the LAP-XM\super\'ae\nosupersub  data file in the StationName location.\par
+\pard\nowidctlpar\par
+\b Tester_Hardware_UPS_SNMP\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Updated to test both the old MGE 66244 and the new MGE 66102 SNMP cards\par
+-\tab (Classes/UPS_SNMP) Updated to work with both the old MGE 66244 SNMP card and the new MGE 66102 SNMP card.\par
+\pard\nowidctlpar\par
+\b Process Module Examples\par
+\b0 -\tab File updated to correct bad characters in example file.\par
+\par
+\b Lapxm_QC_Weber_Wuertz\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab (Cns_pData_Array) Updated to handle WXT510 data\par
+\pard\nowidctlpar\par
+\b Lapxm_Rass_Adaptive_Audio\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab (Cns_pData_Array) Updated to handle WXT510 data\par
+\pard\nowidctlpar\par
+\b Lapxm_RassCorrection_DWD\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab (Cns_pData_Array) Updated to handle WXT510 data\par
+\pard\nowidctlpar\par
+\par
+-----------------------------------------------------------\par
+-----------------------------------------------------------\par
+\b\fs28 ***** Version 2.4.0.0 *****\fs24\par
+\b0\i\fs20 June-2007\par
+\i0\par
+Version 2.4.0.0 is a full release of the LAP-XM\super\'ae\nosupersub  software. All\par
+necessary files required for software installation and operation\par
+are contained in this release.\par
+\par
+     \par
+------------------------\par
+\b\fs24 Summary of major changes and new features\b0\fs20\par
+\par
+\pard\nowidctlpar\fi-360\li600\tx600 *\tab LAP-XM\super\'ae\nosupersub  2.4.0.0 is now being compiled with Microsoft Visual Studio 2005 .NET\par
+*\tab Includes new LAP\super\'ae\nosupersub -3000 Maintenance Manual.\par
+*\tab Added a new Boundary Layer module. This is an experimental algorithm that calculates the convective boundary layer altitude from spectral moments data using fuzzy logic method.\par
+*\tab New optional Melting Layer module available that calculates the melting layer using an algorithm based on the maximum SNR values in the spectral moments data.\par
+*\tab NOAA Precipitation algorithm implemented in the Consensus_WindTemp module.\par
+*\tab Added a new module for archiving consensus data in XML format.\par
+*\tab Added a new module for distributing XML formatted consensus data with the Vaisala Messaging Middle-Ware technology. The data output is compatible with Vaisala AVI Midas IV application.\par
+*\tab Added second pass algorithm for 4-beam winds and vertical velocity check to the LAP-XM\super\'ae\nosupersub  Weber-Wuertz QC module.\par
+*\tab LAP-XM\super\'ae\nosupersub  Console can now simultaneously display both RASS and Wind points in the Spectra table.\par
+*\tab Added multiple receiver channels capability to the LAP-XM\super\'ae\nosupersub  Wavelet module.\par
+\pard\nowidctlpar\par
+\par
+------------------------\par
+\b\fs24 Modified modules\b0\fs20\par
+\par
+\b Lapxm_Archive_Cns_BUFR\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab WindComputationEnhancement coded from a bit flag table.\par
+-\tab Added optional iWrite configuration parameter (writing on/off).\par
+\lang1036 -\tab Handles DWD multiple QC codes.\par
+\pard\nowidctlpar\par
+\lang1033\b Lapxm_Archive_Cns_COM\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Optional output for spectral width.\par
+-\tab Optional output for extended precision.\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_StiCDF\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Handles DWD multiple QC codes.\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_Text\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Optional output for spectral width.\par
+-\tab Optional output for extended precision.\par
+\pard\nowidctlpar\par
+\b Lapxm_Consensus_WindTemp\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Module accepts several inputs and outputs.\par
+-\tab Parameters are uniquely defined for each input. Block consensus times are separated by -1 in the list.\par
+-\tab Block consensus uses optional iAddToAvgPeriodMin, which defines the number of minutes before the last consensus time to include to the next averaging period.\par
+-\tab Block consensus uses optional iAddToCnsQCPeriodMin, which defines the number of minutes before the last consensus time to include to consensus window search and thresholding.\par
+-\tab Optional iEnable parameter to turn on/off processing for different inputs.\par
+-\tab NOAA Precipitation algorithm implemented.\par
+-\tab CBstr to std::string change.\par
+\pard\nowidctlpar\par
+\b Lapxm_Console\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Changed Spectra Table Display to show both RASS and Wind points in the table at the same time.\par
+-\tab Corrected Spectra Text output to contain both RASS and Wind points.\par
+-\tab Now grays out "Rass" on the Popup menu when in the TimeSeries or Table displays.\par
+-\tab Now grays out "UnZoom" on the Popup menu when in Table display and showing TimeSeries or Spectral data.\par
+-\tab Text file output of Moments data now changes with the selection of Height ASL, Metric, Wind Units and Rass Unit parameters.\par
+-\tab Moment crosses are now in the middle of the peaks. (Corrected truncation issue in the Stacked Plot display code)\par
+-\tab Selection added to launch the new LAP\super\'ae\nosupersub -3000 Maintenance Manual.\par
+\pard\nowidctlpar\par
+\b Lapxm_DspHw_PiraqIII\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Changed concatenation messaged from "Module_Info" to "Warnings".\par
+\pard\nowidctlpar\par
+\b Lapxm_MessageLogger\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Now creates the "logs" directory if it is not already there.\par
+\pard\nowidctlpar\par
+\b Lapxm_Moments\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Zero signal power is replaced with a small float to avoid logarithm problems.\par
+\pard\nowidctlpar\par
+\b Lapxm_Moments_MPP_ETH\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Some fuzzy logic weights modified.\par
+-\tab iUseSnrMagnitude has a default value of 1.\par
+-\tab Added optional fMaxRadialWindShear parameter.\par
+-\tab Added optional fMinMeanVelRFI parameter in the RFI algorithm.\par
+-\tab Added optional iPT_Interpolate parameter in the point target algorithm.\par
+-\tab Does not compare peaks from the same spectrum in weighting factor calculation.\par
+\pard\nowidctlpar\par
+\b Lapxm_Playback\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added feature to look up current version number from the registry and copy it into the LapxmDataStructure.\par
+\pard\nowidctlpar\par
+\b Lapxm_QC_WeberWuertz\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Add second pass of the algorithm for 4-beam winds.\par
+-\tab Add vertical velocity check.\par
+-\tab Produce optional DWD multiple QC codes.\par
+\pard\nowidctlpar\par
+\b Lapxm_Wavelet\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Handles multiple receiver channels.\par
+\pard\nowidctlpar\par
+\b LapLogger class\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Add reading int * array.\par
+-\tab Add an overloaded Write method that can take a char * parameter as the second argument.\par
+\pard\nowidctlpar\par
+\b LapxmEditor\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected "The number of FFT points must be a multiple of 2" error that showed up when compiled in VS2005.\par
+\pard\nowidctlpar\par
+\b SpectraRoutines class\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Use the correct parameter to mark DC point interpolation.\par
+\pard\nowidctlpar\par
+\par
+-----------------------------------------------------------\par
+-----------------------------------------------------------\par
+\b\fs28 ***** Version 2.3.3.0 *****\fs24\par
+\b0\i\fs20 May-2007\par
+\i0\par
+Version 2.3.3.0 Update is an update release for the LAP-XM\super\'ae\nosupersub  software. This update must be applied to an existing LAP-XM\super\'ae\nosupersub  2.3.0.0 full installation. It is not necessary to apply the 2.3.1.0 Update or 2.3.2.0 Update before applying 2.3.3.0 update. However, no conflicts are created if either or both the LAP-XM\super\'ae\nosupersub  2.3.1.0 Update or LAP-XM\super\'ae\nosupersub  2.3.2.0 are installed first.\par
+\par
+------------------------\par
+\b\fs24 Summary of major changes and new features\b0\fs20\par
+\par
+\pard\nowidctlpar\fi-360\li600\tx600 *\tab Included three HTML files required to support the NorthernLights .NET 2005 BUFR library.\par
+\pard\nowidctlpar\li720 1.) B_d00v09.htm\par
+2.) D_d00v09.htm\par
+3.) siteconf.htm\par
+\pard\nowidctlpar\par
+\pard\nowidctlpar\fi-360\li600\tx600 *\tab Included a BUFR registry entry required to support the NorthernLights .NET 2005 BUFR library.The BUFR registry entry\par
+    [HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Environment]\par
+    "VBUFR_TABLE_DIR"="C:\\\\Program Files\\\\Crada\\\\Lapxm\\\\Bin\\\\BUFR"\par
+\pard\nowidctlpar  \par
+\pard\nowidctlpar\fi-360\li600\tx600 *\tab Removed the LAP-XM\super\'ae\nosupersub  2300 registry entry that prevents LAP-XM\super\'ae\nosupersub  from communicating with the ISA hardware.\par
+\pard\nowidctlpar\li720 [HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\WinRT\\Enum]\par
+\pard\nowidctlpar  \par
+------------------------\par
+\b\fs24 Modified modules\b0\fs20\par
+\par
+Modified the consensus data archive modules to fully support new Weber-Wuertz output available in LAP-XM\super\'ae\nosupersub  2.3.2.0 Update.\par
+\par
+\b Lapxm_Archive_Cns_Text\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab File revision number is increased to 5.1 from 5.0\par
+-\tab If iWrite_QC is turned on, displays the QC values for U,V and W in the last 3 columns\par
+-\tab Displayed QC values follow the new Weber-Wuertz convention: 7 = suspect, 8 = invalid, 9 = missing or failed consensus\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_Db\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 - Correctly writes the QC values from the new Weber-Wuertz version.\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_BUFR\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 - Correctly handles the QC values from the new Weber-Wuertz version.\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_STICDF\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 - Correctly writes the QC values from the new Weber-Wuertz version.\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_COM\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 - Correctly writes the QC values from the new Weber-Wuertz version.\par
+\pard\nowidctlpar\par
+\par
+-----------------------------------------------------------\par
+-----------------------------------------------------------\par
+\b\fs28 ***** Version 2.3.2.0 *****\par
+\b0\i\fs20 Dec-2006\par
+\i0\par
+Version 2.3.2.0 Update is an update release for the LAP-XM\super\'ae\nosupersub  software.\par
+This update must be applied to an existing LAP-XM\super\'ae\nosupersub  2.3.0.0 full installation.\par
+It is not necessary to apply the 2.3.1.0 patch before applying 2.3.2.0 update.\par
+However, no conflicts are create if 2.3.1.0 is installed first.\par
+\par
+\par
+------------------------\par
+\b\fs24 Modified modules\b0\fs20\par
+\par
+\b LapPopDataFile Class\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Now re-tries for 10 seconds when it can not open a file.\par
+-\tab Removed the function that deleted either the data or header file if the other did not exist. This was to make sure the two files stayed in sync but ended up causing more problems then it solved.\par
+-\tab Corrected index issue that made heights incorrect when reading in old Pop data files that store more then one dwell mode in the header block.\par
+\pard\nowidctlpar\par
+\b Lapxm_AdaptiveAudioFreq\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Modified the frequency range calculation to prevent the module from accidentally going outside the acceptable frequency range.\par
+\pard\nowidctlpar\par
+\b Lapxm_Console\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Recompiled with fixes made to LapPopDataFile Class - see above.\par
+\pard\nowidctlpar\par
+\b Lapxm_Dsp_PiraqIII\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added configuration file parameter \ldblquote iFilterThreshold\rdblquote  to support image rejection ratio change in PiraqIII_Driver.\par
+\pard\nowidctlpar\par
+\b Lapxm_PopArchive\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Recompiled due to changes in the LapxmPopDataFile class - see above.\par
+-\tab Added iWriteBeamDirectionCodes parameter.\par
+\pard\nowidctlpar\par
+\b Lapxm_RadarControllerHw\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Changed constraints on Pw and GateSpacing parameters to function correctly with modified FIR Filters.\par
+-\tab Added iMinIppNs check.\par
+\pard\nowidctlpar\par
+\b Lapxm_PulseShaperHw\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected timing issue where the notches did not line up with the phase transitions.\par
+\pard\nowidctlpar   \par
+\b PiraqIII_Driver\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Modified the FIR filter the coefficients and timing calculations to increase the image rejection ratio.\par
+\pard\nowidctlpar\par
+\b RadarController_Rev2_Driver\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Fixed DDS reboot hang by adding a 1 millisecond wait between loading the set-up parameters into the DDS and loading the frequency information.\par
+-\tab Added 48MHz ramp up on start up feature. Can be turned off in the registry\par
+\pard\nowidctlpar\par
+\b Lapxm_QC_WeberWuertz\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab The LAP-XM\super\'ae\nosupersub  real-time module Weber-Wuertz algorithm was modified to more accurately replicate the STI offline Weber-Wuertz algorithm implementation with consultation from Dr. Bob Weber. The U,V,W data components are now used rather than the radials data. See example "Weber-Wuertz 2320.pdf" and "Process Module Examples.txt" file for parameter changes.\par
+\pard\nowidctlpar   \par
+\b Lapxm_Archive_Cns_BUFR\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab WindComputation Enhancement values 2-5 are now correctly converted to correspond to the appropriate bits in the BUFR flag table.\par
+\pard\nowidctlpar\par
+\b Test_Hardware_Piraq_RC\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Recompiled to function correctly with new RadarController_Re2_Driver and PiraqIII_Driver dlls.\par
+\pard\nowidctlpar\par
+\par
+-----------------------------------------------------------\par
+-----------------------------------------------------------\par
+\b\fs28 ***** Version 2.3.1.0 *****\par
+\b0\i\fs20 May-2006\par
+\i0\par
+Version 2.3.1.0 Update is an update release for the LAP-XM\super\'ae\nosupersub  software.\par
+This update must be applied to an existing LAP-XM\super\'ae\nosupersub  2.3.0.0 full installation.\par
+\par
+\par
+------------------------\par
+\b\fs24 Modified modules\b0\fs20\par
+\par
+\b Lapxm_Archive_Cns_BUFR\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Because BUFR is not thread safe, a check has been added to prevent more then one instance of this module from being instantiated.\par
+\pard\nowidctlpar\par
+\b Lapxm_Background_Audio\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added internal checks to verify that the sound file is loaded, playing and that the volume is set correctly.\par
+\pard\nowidctlpar\par
+\b Lapxm_Consensus_WindTemp.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Software vertical range correction (iUseVerticalObliqueRangeCorrection) is now disabled when the data was acquired using hardware vertical correction (iVertCorrectHW in DwellMode section of config file) \par
+\pard\nowidctlpar   \par
+\b Lapxm_Console\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected truncation error in RassTemp value by updating LapPopDataFile.cpp\par
+-\tab Corrected bug that caused the Console to crash when trying to display the Event Log when there are blank lines in the Event log.\par
+-\tab Can now turn off splash screen by setting [HKEY_CURRENT_USER\\Software\\Local AppWizard-Generated Applications\\Lapxm_Console\\VIEW_OPTIONS] "ConsoleSplashScreen"= 0\par
+-\tab Added option to choose between "Gates" and "Time" for the X axis scale in AScan mode\par
+-\tab Added option to choose between "Fixed" and "Scaled" scale for the Y axis scale in AScan mode\par
+-\tab LapPopDataFile class now uses the iSampleClockMHz_X100 value to recreate the precision of FirstGateNs and GateSpacingNs only when iSampleClockMHz_X100 exists.\par
+-\tab Matching is now correctly turned off when a new file is open in Replay\par
+-\tab When Matching is on, the BOF and EOF file is one that correctly matches instead of the first or last dwell in the file\par
+-\tab Zoom now applies to the Moments Table\par
+-\tab Zero velocity label on bottom of Stacked and Contour plot now correctly aligns with the DC line\par
+-\tab Mean Noise Value is now displayed at the bottom of the Noise column in the Table Display\par
+  - Added PreBlank, PreTR, PostBlank, PostTr, and SystemDelay to Dwell parameter info column.\par
+-\tab Correctly subtracts "Fixed Noise Level" value in Contour plot.\par
+-\tab Added Frequency to Dwell parameter info column.\par
+-\tab Added a 'refresh' and 'auto-update' buttons to the Monitor screen so one choose between automatic screen refresh or only when manually requested.\par
+-\tab Added selection field for optional feature in Lapxm_Main which loads the last configuration file used. \par
+\pard\nowidctlpar\par
+\b Lapxm_Isapi_CheckSystem\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added selection field for optional feature in Lapxm_Main which loads the last configuration file used. \par
+\pard\nowidctlpar\tab\par
+\b Lapxm_Main\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added an optional feature which causes the last used configuration file to be loaded and run after a reboot regardless of the state the system was in prior to the reboot occurring.\par
+\pard\nowidctlpar\tab\par
+\b Lapxm_Moments\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected an indexing bug in the SpectralRoutines code that affected the Moments module. When a peak wraps around the top end, the index was one less then it should have been.\par
+\pard\nowidctlpar\par
+\b Lapxm_Moments_MPP_ETH\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected an indexing bug in the SpectralRoutines code that affected the Moments module. When a peak wraps around the top end, the index was one less then it should have been.\par
+\pard\nowidctlpar\par
+\b Lapxm_PopArchiver\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected truncation error in RassTemp value by updating LapPopDataFile.cpp. \par
+\pard\nowidctlpar\par
+\b Lapxm_Rass_AdaptiveAudioFreq\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Updated to stay within an acceptable range when consensus fails.\par
+\pard\nowidctlpar\par
+\b Lapxm_RemoteCommand\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Fixed bug where it was echoing out the blank line to the event log\par
+-\tab Made module more robust so it can handle blank lines after "Message" command, puts out warning when it can not delete the file, Looks for "End" to show end of file.\par
+\pard\nowidctlpar\par
+\b Piraq_Dsp_Code_RevB\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Top gates are now correctly decoded.\par
+\pard\nowidctlpar\par
+\b Monitor Database\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Correctly deletes raw data older than 2 days by initializing the "Admin" table with the correct values.\par
+-\tab Reduced the time it takes to return data from the "GetLastestDataByParameterID" stored procedure query. \par
+-\tab Added "Last Updated" field to the "Parameter" table.\par
+-\tab Stop logging aggregation information to the aggregation log table.\par
+\pard\nowidctlpar\par
+\par
+-----------------------------------------------------------\par
+-----------------------------------------------------------\par
+\b\fs28 ***** Version 2.3.0.0 *****\par
+\b0\i\fs20 12-Sept-2005\par
+\i0\par
+Version 2.3.0.0 is a full release of the LAP-XM\super\'ae\nosupersub  software. All\par
+files required for the software's installation and operation\par
+are contained in this release.\par
+\par
+     \par
+------------------------\par
+\b\fs24 Summary of major changes and new features\b0\fs20\par
+\par
+\pard\nowidctlpar\fi-360\li600\tx600 *\tab New Lapxm_Console provides centralized control, event log, monitor operations, replay and opposing beam dwell display.\par
+*\tab New LAP-XM\super\'ae\nosupersub  configuration file editor\par
+*\tab Adaptive RASS - provides automatic adaptive selection of RASS source frequencies.\par
+*\tab Vertical range correction available through hardware.\par
+*\tab Lapxm_Playback module can reprocess multiple data files.\par
+*\tab Improved monitor web user interface.\par
+*\tab New web interface for displaying wind or temperature MET data. (Requires GraphXM graphing software)\par
+*\tab Background audio module provides continuous white noise signal to RASS transducers during non-RASS operational periods.\par
+\pard\nowidctlpar\par
+\par
+------------------------\par
+\b\fs24 Modified modules\b0\fs20\par
+\par
+\b Cns_pData_Array.cpp\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Remove the sin() term in range gate computations.\par
+\pard\nowidctlpar\par
+\b LabviewVaisalaTimingGenerator.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Removed NOP operation in order to create active low signals.\par
+-\tab Corrected defect that caused the firs four signals to be incorrect.\par
+\pard\nowidctlpar\par
+\b LapLogger.cpp & .h\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab CLapLogger Class is a generic text logging class that provides file handling and text formatting features.\par
+\pard\nowidctlpar\par
+\b LapXMEditor.exe\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab New editor for LAP-XM\super\'ae\nosupersub  configuration files.\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_BUFR\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Updated range gate equations.\par
+-\tab Added new optional parameter sHeightConvention to select either 'AGL' (default) or 'ASL'.\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_DB.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab The name of the database is written to the registry upon first consensus rather than at module initialization.\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_STICDF\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Now handles 'Missing Data' flag in the Spectra generated by MPP\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_Text\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Add parameter name check "AllParamNames()"\par
+\pard\nowidctlpar   \par
+\b Lapxm_Archive_Spec_Tycho.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Creates Tycho spectra file format. Includes data ready communications socket.\par
+\pard\nowidctlpar\par
+\b Lapxm_Background_Audio.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Provide low volume white noise trickle output for non-RASS periods.\par
+\pard\nowidctlpar\par
+\b Lapxm_CN2.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Now handles 'Missing Data' flag in the Spectra generated by MPP\par
+\pard\nowidctlpar\par
+\b Lapxm_Configuration.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab New method "AllParamNames" returns all parameters for a processing module entry.\par
+\pard\nowidctlpar\par
+\b Lapxm_Consensus_WindTemp.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Updated range gate equations.\par
+-\tab Fixed issue with multiple receivers.\par
+-\tab Add parameter name check "AllParamNames()"\par
+-\tab Now handles 'Missing Data' flag in the Spectra generated by MPP\par
+\pard\nowidctlpar\par
+\b Lapxm_Console.exe\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Opposing beam dwell display\par
+-\tab Radar control\par
+-\tab Data Replay\par
+-\tab Event Log\par
+\pard\nowidctlpar\par
+\b Lapxm_ConsoleDisplay.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Data repository to feed TS, Spectra & Moments data to the Lapxm_Console application.\par
+\pard\nowidctlpar\par
+\b Lapxm_DspHw.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Writes "progress count" to registry\par
+-\tab Improved range gate equations.\par
+-\tab Corrected error in the simulated data generation under ICRA mode.\par
+-\tab Oversampling with pulse coding added.\par
+\pard\nowidctlpar\par
+\b Lapxm_DspHw_PiraqIII.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected default values when B6tau is missing from the hardware file.\par
+-\tab Writes "progress count" to registry.\par
+-\tab Improved range gate equations.\par
+-\tab Memory constraint check added to ensure memory over runs do not occur in operations.\par
+-\tab Updated range gate equations.\par
+-\tab No longer requires iRassDopPtBegin and iRassDopPtNum on wind modes.\par
+-\tab Oversampling with pulse coding added.\par
+\pard\nowidctlpar\par
+\b Lapxm_DwellDisplay.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Removed the sin() term in range gate computations. It is accomplished in DspHw.\par
+-\tab Now handles 'Missing Data' flag in the Spectra generated by MPP\par
+\pard\nowidctlpar\par
+\b Lapxm_DwellEngine.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Calls LoadRassParameters on every dwell to accommodate adaptive RASS.\par
+-\tab Writes "Dwell Mode" to registry.\par
+-\tab Fixed defect where the bandwidth did not change correctly after a pause command when using iTestPulsesonPause.\par
+\pard\nowidctlpar\par
+\b Lapxm_GPS.exe\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Updated information output to the registry for better display in the "Settings" dialog box of the LAP-XM\super\'ae\nosupersub  Console application. \par
+\pard\nowidctlpar\par
+\b Lapxm_Isapi_Graph_Consensus.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab New web browser UI feature that creates displays of wind or temperature data profiles using GraphXM in command line mode as graphing engine.\par
+\pard\nowidctlpar\par
+\b Lapxm_Isapi_Home.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added links to new MET graphing module.\par
+-\tab Reformatted the HTML output of all methods in this module to be well formed.\par
+-\tab Generates a warning message when a user attempts to start a CFG file greater than 22 characters. Start is not called when the file name exceeds acceptable length.\par
+-\tab Moved [Refresh Control Panel] link.\par
+\pard\nowidctlpar\par
+\b Lapxm_Isapi_ViewMonitorDB.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Modify ViewMonitorDB ISAPI module to display two new status categories - blue (maintenance) and orange (warning).\par
+-\tab Provides button on UI to toggle maintenance state On/Off.\par
+-\tab New "View Status" button added to make UI more intuitive.\par
+-\tab The "Clear Device Errors" button resets the registry device error entries.\par
+-\tab Change "Invalid" text color to orange.\par
+\pard\nowidctlpar\par
+\b Lapxm_Main.exe\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Clears "Dwell Mode" and "Progress Count" in registry.\par
+-\tab Secondary thread added to allow interface calls to return immediately.\par
+-\tab Changed registration so that it allows interaction with the desktop.\par
+-\tab Changed time out to 5 seconds for loading and unloading and 3 minutes for pause and stop.\par
+\pard\nowidctlpar\par
+\b Lapxm_Moments_MPP_ETH.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Noise level computation changed to match that used in the standard moments module.\par
+-\tab Modified to correctly use a change to the SpectraRoutines class.\par
+-\tab Input parameter name iMaxHeightCR changed to fClutterHeightKm.\par
+-\tab Labels symmetric peaks at aerostat heights with PTARGET_FLAG.\par
+\pard\nowidctlpar   \par
+\b Lapxm_Monitor_DbInterface.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added GetLatestDataByDeviceId method.\par
+\pard\nowidctlpar\par
+\b Lapxm_Monitor_Generic.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Add new maintenance registry lookup that determines whether or not to react to fault device errors.\par
+-\tab Add new "warning" device status registry entry.\par
+-\tab Removed the feature that reset device error registry entries. This is now accomplished by Lapxm_Isapi_ViewMonitorDB.\par
+-\tab This module no longer outputs error messages when the radar is in "Maintenance" mode.\par
+\pard\nowidctlpar\par
+\b Lapxm_Monitor_HwInterface_Ups_Snmp.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab New optional parameter iChargePercentMin allows shutdown to occur at a specified percentage of remaining battery life.\par
+\pard\nowidctlpar\par
+\b Lapxm_Playback.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected issue with reading files larger than 2 gigabytes. Will now read up to 4GB.\par
+-\tab Improved range gate equations.\par
+-\tab Modified to use new LapPopDataFile class which encapsulates all file handle operations.\par
+-\tab Multiple files can be processed from a list of filenames.\par
+-\tab Multiple files can be processed using a file name containing wildcard characters.\par
+\pard\nowidctlpar\par
+\b Lapxm_PopArchiver.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Time-series files can not be greater than 4GB. Resolution is to break data into hourly non-POP files with the naming format of: Dsssyydddhhx.spc\par
+Where D =data, H = header, sss = site ID from .site file, yy = year, ddd = Julian day, hh = hour, x = user defined char indicator for different file types.\par
+-\tab Now handles network drives.\par
+-\tab Corrected iPopcompliant issue where it was using NSpec in the calculations.\par
+-\tab Modified to use new LapPopDataFile class which encapsulates all file handle operations.\par
+  \par
+\pard\nowidctlpar\b Lapxm_PulseHw\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected the MaxDutyCycle calculation so it would not be truncated to an int.\par
+\pard\nowidctlpar\par
+\b Lapxm_RadarControllerHw.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected rounding issue when converting timing in nanoseconds to multiple of the Piraq clock cycles.\par
+-\tab Modify hardware code so that when sampling the received signal, that the radar resolution volume has the same geometric height above the surface for the vertical beam as it does for the oblique beams.\par
+-\tab Corrected the MaxDutyCycle calculation so it would not be truncated to an int.\par
+-\tab Removed NOP operation in order to create active low signals.\par
+-\tab Corrected defect that caused the firs four signals to be incorrect.\par
+\pard\nowidctlpar\par
+\b Lapxm_RassSB.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab WAV file is now generated at 16 bit resolution rather than 8 bit. Eliminated transient noise.\par
+-\tab Re-design of RASS implementation to allow dynamic audio frequency range adjustment.\par
+\pard\nowidctlpar\tab\par
+\b Lapxm_Rass_AdaptiveAudioFreq.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Provides automatic adaptive selection of RASS source frequencies.\par
+\pard\nowidctlpar\par
+\b Lapxm_RassCorrection_DWD.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Includes an optional parameter iUseR2Correction to apply 1/range^2 term in radar equation.\par
+\pard\nowidctlpar\par
+\b Lapxm_Spectra.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Add parameter name check "AllParamNames()"\par
+-\tab Found "Module will not start" defect. m_iCurrentState was not being initialized.\par
+\pard\nowidctlpar\par
+\b Lapxm_Spectra_InterferenceReduction.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Remove the sin() term in range gate computations.\par
+-\tab Removed the sin() term in range gate computations. It is accomplished in DspHw.\par
+-\tab Modified to correctly use a change to the SpectraRoutines class.\par
+-\tab Add parameter name check "AllParamNames()"\par
+-\tab Fixed log of zero handling in peak interpolation algorithm. \par
+\pard\nowidctlpar   \par
+\b Lapxm_Wavelet.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Modified DeSpike and DaubClip to handle a number of points of 1024 or greater using detrending and zero-padding algorithms.. Values of a power of two are not longer required.\par
+-\tab Replace some Intel library functions with customized code to obtain double precision.\par
+\pard\nowidctlpar\par
+\b PiraqIII_Driver.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected calculation of iCount in the ReturnFilterValue() method.\par
+-\tab Updated with PLX SDK 4.2. Now works on XP\par
+\pard\nowidctlpar\par
+\b RadarController_Rev2_Driver.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Removed NOP operation in order to create active low signals.\par
+-\tab Updated with PLX SDK 4.2. Now works on XP\par
+\pard\nowidctlpar\par
+\b Tester_Hardware_Piraq_RC.exe\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected clock cycle rounding issue.\par
+-\tab Changed default values.\par
+-\tab Text display now scrolls up to 500 lines.\par
+-\tab Corrected Filter Value print out to include last Q value\par
+\pard\nowidctlpar\par
+\b Tester_Monitor_DbInterface.exe\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Updated to test new GetLatestDataByDeviceId method.\par
+\pard\nowidctlpar\par
+\b Vaisala Timing Generator Tester.exe\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected "J4 37,36" to "J4 35,36"\par
+-\tab Removed NOP operation in order to create active low signals.\par
+\pard\nowidctlpar\par
+----------------------------\par
+\b\fs24 LAP-XM\super\'ae\nosupersub  Data Structure Changes\par
+\b0\fs20\par
+LapxmDataStructure_Definition.h\par
+\par
+  \b long  lNCode_Cal\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Used by MMCR to pass iNCode_Cal when calibrating\par
+\pard\nowidctlpar\par
+  \b long  lVertCorrectHw\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Vertical Range Correction applied in the hardware. 1 = On, 0 = Off\par
+\pard\nowidctlpar\par
+  \b float fSampleClockHz\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab The frequency in Hertz of the clock used to generate the sample timing signals\par
+\pard\nowidctlpar\par
+  \b float fVertCorrectHwAngleDeg\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab The angle in degrees used in correcting the vertical range sampling\par
+\pard\nowidctlpar\par
+  \b long  lOverlap\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Used by Spectral Module to indicate iOverLap\par
+\pard\nowidctlpar\par
+  \b long  lConcatenatedTimeSeries\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab The DSP module can now concatenate together the time series from several dwells to make a dwell larger than the dsp hardware can handle. 1 = On, 0 = Off\par
+\pard\nowidctlpar\par
+----------------------------\par
+\b\fs24 Internal Utilities\par
+\b0\fs20\par
+\b CLapConfig class\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Check input parameter name spelling.\par
+\pard\nowidctlpar\par
+\b CLapLogger class\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added ability to write the contents of a C array to a log file.\par
+\pard\nowidctlpar\par
+\par
+-----------------------------------------------------------\par
+-----------------------------------------------------------\par
+\b\fs28 ***** Version 2.2.2.0 *****\par
+\b0\i\fs20 01-June-2004\par
+\i0\par
+Version 2.2.2.0 is an update release for the LAP-XM\super\'ae\nosupersub  software. This patch must be applied to an existing LAP-XM\super\'ae\nosupersub  2.2.0.0 full installation. It is not necessary to apply the 2.2.1.0 patch before applying 2.2.2.0 update. No conflicts are create if 2.2.1.0 is installed first, however.\par
+\par
+\par
+------------------------\par
+\b\fs24 Summary of major changes and new features\b0\fs20\par
+\par
+\pard\nowidctlpar\fi-360\li600\tx600 *\tab Multiple product input and output added to data processing modules.\par
+*\tab Improved and standardized time handling routines.\par
+*\tab Improved internal configuration information handling routines.\par
+*\tab Multiple receiver capability added.\par
+*\tab DSP data transfer size increased from 8 MB to 16 MB.\par
+*\tab Speed control added to the playback feature.\par
+*\tab New user interface page allows configuration file upload, download, delete and rename capability.\par
+*\tab Improved Internet Information Service (IIS) security configuration.\par
+*\tab Internal flag added to the TS, spectra and moments header file to indicate the use of overlapping and concatenation of TS.\par
+*\tab MSDE Monitor database tuned for better memory usage.\par
+\pard\nowidctlpar\par
+\par
+------------------------\par
+\b\fs24 Modified modules\b0\fs20\par
+\par
+\b Lapxm_Archive_Cns_BUFR\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapTime routines for handling time and date\par
+-\tab Added LapConfig routines for reading and checking configuration parameters\par
+-\tab Configuration parameter sFileNameBegin is now a list-type parameter: \{'CM2WP_','CAMWP_'\};\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_COM\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapTime routines for handling time and date.\par
+-\tab Added LapConfig routines for reading and checking configuration parameters.\par
+-\tab New configuration parameters: using an identical set of parameters with Lapxm_Archive_Cns_Text module.\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_Db\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapTime routines for handling time and date.\par
+-\tab Added LapConfig routines for reading and checking configuration parameters.\par
+-\tab QC values from WeberWuertz algorithm are stored as 9 (missing), 8 (invalid), 7 (suspect) or 0 (valid). The same convention is used in GraphXM.\par
+-\tab QC code for wind ignores absence of the vertical component\par
+-\tab The procedure for computing the time stamps for 'begin', 'middle' and 'end' choices was rewritten.\par
+-\tab Configuration parameter iCompactDatabase is removed. The database compaction is not needed any more.\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_STICDF\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapTime routines for handling time and date.\par
+-\tab Added LapConfig routines for reading and checking configuration parameters.\par
+-\tab QC values from WeberWuertz algorithm are stored as 9 (missing), 8 (invalid), 7 (suspect) or 0 (valid). The same convention is used in GraphXM.\par
+-\tab Identical time stamps used for the first data record and the file name.\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_Cns_Text\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapTime routines for handling time and date.\par
+-\tab Added LapConfig routines for reading and checking configuration parameters.\par
+-\tab Corrected rounding float values before writing to file.\par
+-\tab Report wind direction north always as 0 degrees instead of 360 degrees \par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_DSD_Text\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapTime routines for handling time and date.\par
+-\tab Added LapConfig routines for reading and checking configuration parameters.\par
+\pard\nowidctlpar\par
+\b Lapxm_Archive_TsSpecMom_Text\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab New module that writes data to a text file. For development use only.\par
+\pard\nowidctlpar\par
+\b Lapxm_Consensus_WindTemp\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapTime routines for handling time and date.\par
+-\tab Added LapConfig routines for reading and checking configuration parameters.\par
+-\tab Corrected an overflow problem if using 'Middle' option for sTimeStamp configuration parameter\par
+-\tab Beam directions are stored in an ascending direction code order in the output\par
+-\tab SNR value when no data points in consensus is 999999\par
+-\tab Handles time stamp computation at daylight savings time change\par
+-\tab Implemented the opposing beam algorithm requested/provided by UK Met office.\par
+\pard\nowidctlpar\par
+\b Lapxm_DSD\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected indexing error in range gate averaging.\par
+\pard\nowidctlpar\par
+\b Lapxm_DspHw\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected a check that stated Npts must be between 16 and 4096\par
+\pard\nowidctlpar\par
+\b Lapxm_DspHw_Piraq\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Recompiled to bring in changes in Piraq_Driver.dll\par
+-\tab Automatically concatenates dwells when the total data is larger than the memory on the DSP card\par
+\pard\nowidctlpar\par
+\b Lapxm_DwellControl_Speed\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab New module for playback control\par
+\pard\nowidctlpar\par
+\b Lapxm_DwellDisplay\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapTime routines for handling time and date.\par
+-\tab Added LapConfig routines for reading and checking configuration parameters.\par
+-\tab Use of multiple dwell displays: warns of multi-thread problems.\par
+-\tab Handles multiple receivers\par
+-\tab Corrected error that caused directions to be incorrectly displayed.\par
+\pard\nowidctlpar\par
+\b Lapxm_DwellEngine\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapTime routines for handling time and date.\par
+-\tab Check minutes between local time and UTC for each dwell to correctly handle daylight savings time.\par
+\pard\nowidctlpar\par
+\b Lapxm_Isapi_EasyEditor\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab New link added to provide access to the "Configuration File Management" user interface.\par
+\pard\nowidctlpar\par
+\b Lapxm_Isapi_ConfigFileMgt\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab New web browser user interface that provides upload, download, deletion and renaming of LAP-XM\super\'ae\nosupersub  configuration files.\par
+\pard\nowidctlpar\par
+\b Lapxm_Isapi_Upload\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab This is a support module for the file upload feature of the Lapxm_Isapi_ConfigFileMgt module.\par
+\pard\nowidctlpar\par
+\b Lapxm_Isapi_ViewMonitorDB\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Created a third frame in the view current parameters screen that holds the "Edit Limits" button, "Refresh" button and column headers in place rather than allowing them to scroll out of view.\par
+\pard\nowidctlpar\par
+\b Lapxm_Main\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added call to Lapxm_RadarState when Main->StopNoWait() is called to update the radar state module.\par
+-\tab Time out for starting modules was expanded from 5 seconds to 10 seconds. Also reports all modules that do not start.\par
+-\tab The time out period after a Stop request is submitted can now be set by a registry entry. The default value is 2 minutes.\par
+\pard\nowidctlpar\par
+\b Lapxm_Moments\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapConfig routines for reading and checking configuration parameters.\par
+-\tab Check that spectral data is used in input.\par
+-\tab Eliminate possibility of zero division if spectral peak power is 0.0.\par
+-\tab Handles multiple receivers\par
+-\tab Corrected SNR Power calculation when peak is only one bin wide.\par
+\pard\nowidctlpar\par
+\b Lapxm_Moments_MPP_ETH\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapConfig routines for reading and checking configuration parameters.\par
+-\tab Removed duplicate delete operations on data records.\par
+-\tab Added log file output option for weight factor calculation.\par
+-\tab Added an RFI detection algorithm. This algorithm will not accept RFI peaks in profiles.\par
+-\tab Removes duplicates of chain features.\par
+-\tab If iProfileBuildMethod==1, include peaks with highest weight factor (original version). If 2, include peaks with highest SNR.\par
+-\tab Calculate the total power of a chain also in linear domain to compare negative powers correctly.\par
+-\tab Attempt to combine chains that have negative power.\par
+-\tab Moved the computation of profile deviation to an earlier stage to avoid using outliers.\par
+-\tab Changed single peak moments computation to be identical with Lapxm_Moments module.\par
+-\tab Removed setting spectral averaging parameter to 'mean average'.\par
+-\tab Flagged invalid vertical beam spectral peaks so that they never get used.\par
+-\tab Fixed an initialization in RFI routine that caused flagging valid peaks as RFI in rare situations.\par
+\pard\nowidctlpar\par
+\b Lapxm_Monitor_HwInterface_NV7000\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Removed case sensitivity so that either lowercase or uppercase responses from the NV7000 CCU can be accommodated.\par
+-\tab Fixed an "off by one" in an NV7000 read size while handling NACK (local mode) that delayed the read response unnecessarily by the read-timeout value.\par
+-\tab Fixed an incorrect copy size for the string value returned after receiving a NACK (local mode) that could allow previous long responses to pollute the current response with extra characters. Only visible in debug messages after link failures.\par
+-\tab Corrected the retry logic (lost sync or bad checksum) to not remember reading a NACK on the immediately preceding attempt. Always assumes that an ACK will arrive until demonstrated otherwise (both for response size and content).\par
+-\tab Modified communications class to correctly clear both serial chip and operating system FIFO buffers, and use this routine to always flush the input buffers before sending a command instead of only flushing the buffers after an error.\par
+-\tab Added several error messages that report command sent and NV7000 CCU error response.\par
+-\tab Removed synchronization error that could occur with large character read timeout.\par
+-\tab Removed infinite loop that occurred when the link is disconnected.\par
+\pard\nowidctlpar\par
+\b Lapxm_Monitor_HwInterface_Ups_Snmp\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab reduced delay for PCs to shut down from 90 to 45 seconds\par
+\pard\nowidctlpar\par
+\b Lapxm_Playback\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapConfig routines for reading and checking configuration parameters.\par
+-\tab Added ProcessSpeedMilliSec parameter for finer speed control.\par
+-\tab Writes LAP-XM\super\'ae\nosupersub  version number from the registry into the LAP-XM\super\'ae\nosupersub  data structure.\par
+-\tab Handles multiple receivers and iOverlap\par
+\tab - Added optional parameter iOverlapUsed for use on older data files where iOverlap was not recorded in the data file.\par
+-\tab Pop Header changed to indicated the use of overlapping and concatenation.\par
+\pard\nowidctlpar\par
+\b Lapxm_PopArchiver\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapTime routines for handling time and date.\par
+-\tab Added LapConfig routines for reading and checking configuration parameters.\par
+-\tab Store minutes from local to UTC correctly at daylight savings time change.\par
+-\tab Corrected rounding of latitude and longitude values.\par
+-\tab Handles multiple receivers, iOverlap, and hourly files\par
+-\tab Pop Header changed to indicated the use of overlapping and concatenation.\par
+\pard\nowidctlpar\par
+\b Lapxm_QC_WeberWuertz\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapTime routines for handling time and date.\par
+-\tab Added LapConfig routines for reading and checking configuration parameters.\par
+\pard\nowidctlpar\par
+\b Lapxm_RadarControllerHw\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Timing signal now generated so that both coded transmit pulses for each receiver are created before moving to the next receiver.\par
+\pard\nowidctlpar\par
+\b Lapxm_RadarState\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Changed TxInvalidTimesMs from 3000 to 4000\par
+\pard\nowidctlpar\par
+\b Lapxm_RassCorrection_DWD\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapConfig routines for reading and checking configuration parameters.\par
+-\tab Multiple I/O dwell modes with multiple configuration parameter values.\par
+-\tab Corrected using MaxSnrGradient in dB/km.\par
+-\tab Corrected passing iReflectivityMethod parameter to the algorithm.\par
+-\tab Reads gate spacing value from Dwell.fGateSpacingM if Average.fAveragedGateSpacingM is not initialized.\par
+\pard\nowidctlpar\par
+\b Lapxm_RemoteCommand\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added a "wait for stop" command to enhance regression testing.\par
+-\tab Added new command called "Message" that outputs the next line to the LAP-XM\super\'ae\nosupersub  Event Log\par
+\pard\nowidctlpar\par
+\b Lapxm_Spectra\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapConfig routines for reading and checking configuration parameters.\par
+-\tab Multiple I/O dwell modes with multiple configuration parameter values.\par
+-\tab Handles multiple receivers\par
+-\tab Checks for concatenation and turns off iOverlap\par
+\pard\nowidctlpar\par
+\b Lapxm_Spectra_InterferenceReduction\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapConfig routines for reading and checking configuration parameters.\par
+-\tab Multiple I/O dwell modes with multiple configuration parameter values.\par
+-\tab Improved error message for fClutterHeightKm parameter.\par
+-\tab Added Interference Peak Interpolation algorithm.\par
+\pard\nowidctlpar\par
+\b Lapxm_Template_ProcessData\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapConfig routines for reading and checking configuration parameters.\par
+-\tab Updated and clarified template comments and code examples.\par
+\par
+\pard\nowidctlpar\b Lapxm_Wavelet\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added LapConfig routines for reading and checking configuration parameters.\par
+-\tab Multiple I/O dwell modes with multiple configuration parameter values.\par
+-\tab Corrected error messaging when Npts != 4096. The module ignores the wavelet algorithms for such data.\par
+-\tab Use cutting to threshold value instead of random value in HarmonicSub.\par
+\pard\nowidctlpar\par
+\b Monitor MSDE DB 2.0\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Poor performance cursor iterations were replaced with equivalent direct SQL commands.\par
+-\tab A hard coded value in the stored procedure that purges the system of old data was replaced with the correct input parameter value.\par
+-\tab Incorrect usage of exclusive table locks were removed. Table locks hurt performance by unnecessarily limiting table access.\par
+-\tab Removed the MAX SERVER MEMORY PROPERTY. MSDE is intimately coupled into the MS Windows OS memory management. Therefore when the OS requests additional memory, MSDE is designed to release as much memory as it can back to the OS in response to such requests. Hence this setting is superfluous.\par
+-\tab New Windows based installer using Wise installation software. The new installer calls the MSDE setup program making it appear as an integrated part of the installation.\par
+\pard\nowidctlpar\par
+\b MonitorGraph\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Removed original programmer's name, phone number and e-mail address from about dialog box\par
+\pard\nowidctlpar\par
+\b RadarController_Rev2_Driver\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added ability to set the slow speed signals (Switches) from the driver code.\par
+-\tab Corrected a memory leak caused by the destructor not being called correctly\par
+\pard\nowidctlpar\par
+\b PiraqIII_Driver\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected a memory leak caused by the destructor not being called correctly\par
+\pard\nowidctlpar\par
+\b Piraq_dsp_code.out\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Handles 16M of data and multiple receivers\par
+\pard\nowidctlpar\par
+\b Tester_Hardware_NV7000\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Recompiled to take in the changes made to the NV7000 class\par
+\pard\nowidctlpar\tab\par
+\b Tester_Rc_Piraq\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Minor change to correctly set DDS\par
+\pard\nowidctlpar\par
+\b Vaisala Timing Generator Tester.exe\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab New tester for testing Radar Controller boards\par
+\pard\nowidctlpar\par
+\b LabviewVaisalaTimingGenerator.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab New 'C' interface into Radar Controller board used by Labview and Vaisala 'Timing Generator Tester.exe'\par
+\pard\nowidctlpar\par
+\par
+-----------------------------------------------------------\par
+-----------------------------------------------------------\par
+\b\fs28 ***** Version 2.2.1.0 *****\par
+\b0\i\fs20 20-January-2004\par
+\i0\par
+Version 2.2.1.0 is a patch release of the LAP-XM\super\'ae\nosupersub  software. This patch\par
+must be applied to an existing LAP-XM\super\'ae\nosupersub  2.2.0.0 full installation.\par
+\par
+\par
+------------------------\par
+\b\fs24 Summary of major changes and new features\b0\fs20\par
+\par
+\pard\nowidctlpar\fi-360\li600\tx600 *\tab Dlls now handle Rev -,A & B Digital IF boards. One must rename Piraq_Dsp_Code_Rev-.out to Piraq_Dsp_Code.out on Rev- systems.\par
+*\tab RevB uses 3 timing signals from the RadarController hardware. (Rev- and RevA uses only one)\par
+*\tab Configuration checks were moved out of the configuration module into the hardware modules\par
+*\tab DSP code for RevA and RevB shifts FIFO data 14 bits due to the new board layout.\par
+*\tab Allows for dynamic allocation of DSP memory with a limit of 255 gates and iNhts * 2 * iNpts * iNSpec * iNRx < 4,177,920  \par
+\pard\nowidctlpar\par
+\par
+------------------------\par
+\b\fs24 Modified modules\b0\fs20\par
+\par
+\b Lapxm_Configuration.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Removed dwell parameter checks that are now performed in the individual hardware modules\par
+\pard\nowidctlpar\par
+\b Lapxm_DspHw.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added dwell parameter checks that were removed from the Configuration module\par
+-\tab Added CI Overflow parameter check and removed CI Overflow error messages\par
+\pard\nowidctlpar\par
+\b Lapxm_PulseHw.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Added dwell parameter checks that were removed from the Configuration module\par
+-\tab Now looks up the ReceiverMode even when the number of receivers is set to 1. Used by the MMCR\par
+-\tab Corrected problems with iUsePbx = 0\par
+\pard\nowidctlpar\par
+\b Lapxm_DspHw_PiraqIII.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Uses LapConfig to lookup parameters\par
+-\tab Handles RevB Digital IF boards\par
+-\tab Uses three timing signals from the RadarController for Rev. B PCBs\par
+-\tab Added B6tau hardware file lookup for use with Digital Filters\par
+-\tab Allows for dynamic allocation of DSP memory up to iNhts * 2 * iNpts * iNSpec * iNRx < 4,177,920\par
+\pard\nowidctlpar   \par
+\b Lapxm_RadarControllerHw.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Uses LapConfig to lookup parameters\par
+-\tab Handles RevB Digital IF boards\par
+-\tab Uses three timing signals from the RadarController\par
+-\tab Uses ClockCycles instead of ns for improved accuracy\par
+-\tab Corrected issue where the last time count in the RadarController sequence could be negative when subtracting the time for the jump instruction from a time interval of only 3 clock cycles.\par
+\pard\nowidctlpar   \par
+\b piraq_dsp_code.out\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Handles RevA and RevB Digital IF boards\par
+\pard\nowidctlpar   \par
+\b piraq_dsp_code_Rev-.out\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Handles Rev- Digital IF boards and must be renamed to piraq_dsp_code.out if Rev - boards are used\par
+\pard\nowidctlpar   \par
+\b Tester_Hardware_Piraq_RC.exe\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Updated to reflect changes made in Lapxm_RadarControllerHw.dll & Lapxm_DspHw_PiraqIII.dll\par
+\pard\nowidctlpar\par
+\b PiraqIII_Driver.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Removed the 8 times the clock cycle restriction of the Rev- and RevA PiraqIII boards when running a RevB board\par
+\pard\nowidctlpar\par
+\b Pci9054_Lapxm.inf\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Now requests Windows allocate 32MB of memory for the Plx9054 PCI chip to use when transferring data from the PiraqIII to the host PC. (use to be 16MB)\par
+\pard\nowidctlpar\par
+\b Tester_Hardware_NV7000.exe\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Standalone app. clean up work. No functional change.\par
+\pard\nowidctlpar   \par
+\b Tester_Hardware_Ups_Snmp.exe\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Standalone app. added input/output line voltage/current for LAP\super\'ae\nosupersub -3000 configuration.\par
+\pard\nowidctlpar   \par
+\b Lapxm_RadarState.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected issue with Beam Direction state which caused incorrect state information on minus-delay readings.\par
+\pard\nowidctlpar   \par
+\b MonitorGraph.exe\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Standalone app. corrects data range problem in hourly data display.\par
+\pard\nowidctlpar   \par
+\b Lapxm_Monitor_Generic.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected two error messages and correctly closed the file upon failure.\par
+\pard\nowidctlpar   \par
+\b Lapxm_Isapi_CheckSystem.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Correctly looks up LAP\super\'ae\nosupersub -16000 and LAP\super\'ae\nosupersub -3000 from the registry.\par
+\pard\nowidctlpar  \par
+\b Lapxm_Monitor_HwInterface_Ups_Snmp.dll\b0\par
+\pard\nowidctlpar\fi-360\li600\tx600 -\tab Added input/output line voltage/current for LAP\super\'ae\nosupersub -3000 configuration.\par
+\pard\nowidctlpar\par
+\b Lapxm_Isapi_CnsDB.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Changed the registry lookup key from CNSDB to Archive_Cns_DB. This was done because the Lapxm_Archive_Cns_DB module changed the key under which it wrote values that the Isapi dll used. Thus causing a bug in the Web interface where it could no longer download the CNS database.\par
+\pard\nowidctlpar\par
+\b Lapxm_Monitor_HwInterface_485.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Now retries to read the RS-485 module 5 times before reporting a failure (1/10 second pause between each try).\par
+\pard\nowidctlpar\par
+\b Lapxm_DwellControl_SuspendOperations.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Changes iSwitchS to iSwitchMs and added some safety code when a parameter is missing.\par
+-\tab Initialized the buffer size variable on a registry call to ..\\GPS\\Last Message \par
+-\tab Removed the case sensitivity on the month field in the ephemeris table parsing routine.\par
+-\tab Making five attempts at opening the Services API to determine the operational status of Lapxm_GPS. \par
+-\tab Added registry writes to indicate LAP-XM\super\'ae\nosupersub  status during operational and suspended periods. \par
+\pard\nowidctlpar\par
+\b Lapxm_Monitor_HwInterface_NV7000.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected error message when the com port could not be initialized\par
+\pard\nowidctlpar\par
+\b Lapxm_Monitor_CmpTx.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Code moved from NPS system and updated to VSS\par
+\pard\nowidctlpar\par
+\b Lapxm_Monitor_CmpAnt.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Code moved from NPS system and updated to VSS\par
+\par
+\pard\nowidctlpar\b Lapxm_Monitor_dbms.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Code moved from NPS system and updated to VSS\par
+\pard\nowidctlpar\par
+\b Lapxm_IntegratorHw.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Corrected CI Overflow error by checking status bits to make sure the CI hardware really stopped.\par
+\pard\nowidctlpar\par
+\b Lapxm_DwellDisplay.dll\par
+\pard\nowidctlpar\fi-360\li600\tx600\b0 -\tab Widened the display so that the Contour levels well correctly display.\par
+\pard\nowidctlpar\par
+\par
+-----------------------------------------------------------\par
+-----------------------------------------------------------\par
+\b\fs28 ***** Version 2.2.0.0 Update *****\par
+\b0\fs20\par
+Version 2.2.0.0 is a full release of the LAP-XM\super\'ae\nosupersub  software. All\par
+files required for the software's installation and operation\par
+are contained in this release.\par
+\par
+\par
+------------------------\par
+\b\fs24 Summary of major changes and new features\b0\fs20\par
+\par
+\pard\nowidctlpar\fi-540\li810 1)\tab LAP\super\'ae\nosupersub  Monitor Database (LAP\super\'ae\nosupersub -3000 and LAP\super\'ae\nosupersub -16000)\par
+2)\tab MonitorGraph (LAP\super\'ae\nosupersub  Monitor graphing tool)\par
+3)\tab Weber-Wuertz QC module\par
+4)\tab BUFR file format module (WIND & RASS)\par
+5)\tab Wavelets Times Series processing module\par
+6)\tab Multiple Peak Picking module - Eidgen\'f6ssischen Technischen Hochschule (ETH)\par
+7)\tab SoundBlaster RASS source (Finer step resolution available - milliHz vs. Hz)\par
+8)\tab Software & Hardware Watchdog utilities\par
+9)\tab Improved LAP-XM\super\'ae\nosupersub  data structure\par
+10)\tab Added multiple one-to-one data input/output mapping to processing modules. This simplifies configuration file construction\par
+11)\tab Full Time Series data output\par
+12)\tab Pulse shaping module\par
+13)\tab RASS Range Correction module\par
+14)\tab Improved ClutterReduction module\par
+\pard\nowidctlpar\par
+\par
+-----------------------------------------------------------\par
+-----------------------------------------------------------\par
+\b\fs28 ***** Version 2.1.0.0 Update *****\par
+\b0\fs20\par
+Version 2.1.0.0 is a full release of the LAP-XM\super\'ae\nosupersub  software. All\par
+files required for the software's installation and operation\par
+are contained in this release.\par
+\par
+------------------------\par
+\b\fs24 Summary of major changes and new features\b0\fs20\par
+\par
+\pard\nowidctlpar\fi-540\li810 1)\tab Digital IF support\par
+2)\tab Real-Time Time-Series Data processing via LAP-XM\super\'ae\nosupersub  modules.\par
+2)\tab Windows\super\'ae\nosupersub  2000 compliant\par
+3)\tab Access\super\'ae\nosupersub  2000 compliant\par
+4)\tab Newer version of WinRT\super\'ae\nosupersub  device driver V4.0 (non-digital IF configuration)\par
+5)\tab A new network detection feature of Windows\super\'ae\nosupersub  2000 and Internet Explorer now causes Internet Explorer to display a "Work Offline" dialog box at browser startup if a LAN connection does not exist. Accepting the "Try Again" option allows normal browser operation with LAP-XM\super\'ae\nosupersub .\par
+6)\tab Running consensus incorporated into consensus module\par
+7)\tab Failure of DwellEngine stop fixed.\par
+8)\tab Begin, middle and end time stamp feature added to the consensus module.\par
+9)\tab Consensus database file handle leak fixed.\par
+10)\tab RS-232 consensus communications module added\par
+11)\tab Consensus database time resolution changed from 1 minute to 1 second.\par
+12)\tab Minimum number of consensus cycles required for consensus module.\par
+13)\tab Error in vertical/oblique consensus handling fixed.\par
+14)\tab Improved configuration file lookup features.\par
+15)\tab STI CDF file format module\par
+16)\tab Replay - Access to post dwell processes for systems with digital IF \par
+\pard\nowidctlpar\par
+\par
+-----------------------------------------------------------\par
+-----------------------------------------------------------\par
+Report any issues to:\par
+\b U.S. Help Desk 800-221-9779\par
+\b0\par
+\b Vaisala Inc.\par
+Boulder Operations\par
+P.O. Box 3659\par
+Boulder, CO 80307-3659\par
+USA\par
+{\field{\*\fldinst{HYPERLINK "www.vaisala.com"}}{\fldrslt{\ul\cf2 www.vaisala.com}}}\f0\fs20\par
+\b0\par
+}
+ 

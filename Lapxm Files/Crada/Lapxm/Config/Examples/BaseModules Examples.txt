@@ -1,0 +1,480 @@
+// BaseModules Examples.Txt
+// LAP-XM® 2.6.0.0
+// 26Jun12 CC, JWN, RL
+//
+// ******************************************************************
+// ******************************************************************
+//
+// The following are example of module sections for use in the 
+// [PROCESSES] section of the Lapxm_BaseModule.cfg file.
+//
+// Please refer to the LAP-XM® Software Reference Manual, Section 4.6,
+// for information on how to set up the BaseModules file, and a
+// detailed description of the parameters. Section 4.2 describes the 
+// configuration file language syntax.
+//
+// ******************************************************************
+// ******************************************************************
+
+// 1 ________________________________________________________________
+// ******************************************************************
+// Remote Command Module - Executes instructions found in a text
+// command file to control the profiler operation.
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.6.2.1.
+// ******************************************************************
+
+  RemoteCommand(NULL)
+  {
+    iEnable          = 1; 
+    sCommandFileName = 'C:\Program Files\Crada\Lapxm\LAP_Control\Lapxm_Command.txt'; 
+    sOLEID           = 'Lapxm.RemoteCommand.1';
+  };
+
+
+// 2 ________________________________________________________________
+// ******************************************************************
+// USB Communications Module - Enables communication between
+// the embedded monitor elements of the LAP profiler
+// using USB protocol and USB microcontroller modules.
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.6.2.2.
+// ******************************************************************
+
+  Monitor_HwInterface_DLP232(NULL)
+  {
+    iEnable   = 1;
+    sOLEID    = 'Lapxm.Monitor_HwInterface_DLP232.1';
+  };
+
+// Optional parameters with default values.
+
+    iSimulateData = 0;
+
+
+// 3 ________________________________________________________________
+// ******************************************************************
+// RS-485 Communications Module - Enables communication between
+// the embedded monitor elements of the LAP profiler using RS-485
+// protocol and RS-485 microcontroller modules.
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.6.2.3.
+// ******************************************************************
+
+  Monitor_HwInterface_485_Com1(NULL)
+  {
+    iEnable       = 1;
+    sComPortName  = 'COM3';
+    sOLEID        = 'Lapxm.Monitor_HwInterface_485.1';
+  };
+
+// Optional parameters with default values.
+
+    iSimulateData = 0;
+
+
+// 4 ________________________________________________________________
+// ******************************************************************
+// Power Meter Communications Module - Enables Ethernet communication
+// with the Agilent E4417A Power Meter through a Agilent 5810A LAP/GPIB
+// multiport controller.
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.6.2.4.
+// ******************************************************************
+
+  Monitor_HwInterface_PowerMeter_E4417A(NULL)
+  {
+    iEnable               = 0;
+    sIpAddress            = '141.38.186.179';
+    iGpibAddress          = 13;
+    iStoredConfiguration  = 0;
+    iCalibrateEveryXReads = -1;
+    sOLEID                = 'Lapxm.Monitor_HwInterface_PowerMeter_E4417A.1';
+  };
+
+// Optional parameters with default values.
+
+    iSimulateData         = 0;
+
+
+// 5 ________________________________________________________________
+// ******************************************************************
+// NV7000 Communications Module - Enables communication between
+// the radar processor and the Rohde and Schwarz FTK NV7000 amplifier
+// controller used in LAP-16000 profilers using a RS-232 protocol.
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.6.2.5.
+// ******************************************************************
+
+  Monitor_HwInterface_NV7000(NULL)
+  {
+    iEnable             = 1;
+    sComPortName        = 'COM3';
+    sOLEID              = 'Lapxm.Monitor_HwInterface_NV7000.1';
+  };
+
+// Optional parameters with default values.
+
+    iReadFaults         = 1;
+    iReadForwardPower   = 1;
+    iReadReflectedPower = 1;
+    iReadStatus         = 1;
+    iReadTemperature    = 1;
+    iReadTx             = 1;
+    iReadWarning        = 1;
+    iSimulateData       = 0;
+
+
+// 6 ________________________________________________________________
+// ******************************************************************
+// UPS SNMP Communications Module - Enables Ethernet communication
+// between the radar processor and an uninterruptible power source
+// (UPS)using SNMP protocol.
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.6.2.6.
+// ******************************************************************
+
+  Monitor_HwInterface_Ups_Snmp(NULL)
+  {
+    iEnable                  = 1;
+    iEnableShutdown          = 1;   
+    sIpAddress               = '141.38.249.12';
+    iMinutesBeforeShutdown   = 10;
+    iThreePhaseUPS           = 0;
+    iVersion                 = 4;
+    sPathFileName            = 'C:\Program Files\Crada\Lapxm\Config\66102_GA_UPS_MIB_parameters.ini';
+    sOLEID                   = 'Lapxm.Monitor_HwInterface_Ups_Snmp.1';
+  };
+
+// Optional parameters with default values.
+
+    iChargePercentMin              = 0;
+    iSimulateData                  = 0;
+    sLinuxShutDownPathAndFileName  = 'C:\Program Files\Crada\Lapxm\Shutdown\LapxmShutdown';
+
+
+// 7 ________________________________________________________________
+// ******************************************************************
+// Phase Shifter Relay Cycle Counter Module - Counts the number of
+// requested contact cycles for the RF relays used in the antenna
+// phase shifter.
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.6.2.7.
+// ******************************************************************
+
+  DwellControl_AntennaRelayCount(NULL)
+  {
+    iEnable             = 1;
+    sMonitoringSystem   = 'LAP-16000';
+    sClassName          = 'LAP-16000';
+    sDeviceName         = 'Relay Count';
+    sInitFileName       = 'InitFile_RelayCount.txt';
+    sOLEID              = 'Lapxm.DwellControl_AntennaRelayCount.1';
+  };
+
+
+// 8 ________________________________________________________________
+// ******************************************************************
+// ******************************************************************
+// Generic Monitor Modules - The generic monitor module defines the
+// operating parameters and initialization file name of the LAP monitor
+// elements. The following are examples of generic monitor modules
+// configured for LAP systems including for USB and RS-485 communication.
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.6.2.8.
+// ******************************************************************
+
+// ******************************************************************
+// Example using USB monitor module
+// ******************************************************************
+
+  Monitor_DLP232_MII(NULL)
+  {
+    iEnable                   = 1;
+    iUpdateEveryXSecs         = 15;  
+    sMonitoringSystem         = 'LAP-3000';
+    sClassName                = 'LAP-3000';
+    sDeviceName               = 'Power Supply/Mod,IF,Int';
+    sInitFileName             = 'InitFile_DLP232_MII.txt';
+    sHwInterfaceModuleName    = 'Monitor_HwInterface_DLP232';
+    iWriteErrorLog            = 1;
+    sErrorLogPathAndFileName  = 'D:\LapxmData\Log Files\Monitor_Log.txt';   
+    sOLEID                    = 'Lapxm.Monitor_Generic.1';
+  };
+
+// Optional parameters with default values.
+
+    iSimulateData               = 0;
+
+
+// ******************************************************************
+// Example using RS-485 monitor module
+// ******************************************************************
+
+  Monitor_MII(NULL)
+  {
+    iEnable                   = 1;
+    iUpdateEveryXSecs         = 15;  
+    sMonitoringSystem         = 'LAP-3000';
+    sClassName                = 'LAP-3000';
+    sDeviceName               = 'Power Supply/Mod,IF,Int';
+    sInitFileName             = 'InitFile_MII.txt';
+    sHwInterfaceModuleName    = 'Monitor_HwInterface_485_Com1';
+    iWriteErrorLog            = 1;
+    sErrorLogPathAndFileName  = 'D:\LapxmData\.txt';   
+    sOLEID                    = 'Lapxm.Monitor_Generic.1';
+  };
+
+// ******************************************************************
+// Example using UPS network monitor module
+// ******************************************************************
+
+  Monitor_UPS(NULL)
+  {
+    iEnable                   = 1;
+    iUpdateEveryXSecs         = 15;  
+    sMonitoringSystem         = 'LAP-3000';
+    sClassName                = 'LAP-3000';
+    sDeviceName               = 'UPS Pulsar EX 1500';
+    sInitFileName             = 'InitFile_LAP-3000_UPS.txt';
+    sHwInterfaceModuleName    = 'Monitor_HwInterface_Ups_Snmp';
+    iWriteErrorLog            = 1;
+    sErrorLogPathAndFileName  = 'D:\LapxmData\Log Files\ERRORLOG.txt'; 
+    sOLEID                    = 'Lapxm.Monitor_Generic.1';
+  };
+
+// ******************************************************************
+// Example using ATRAD STXII monitor module
+// ******************************************************************
+
+  Monitor_LAP12000_ATRAD_ST80_AmpA(NULL)
+  {
+    iEnable                   = 1;
+    iUpdateEveryXSecs         = 15;  
+    sMonitoringSystem         = 'LAP-12000';
+    sClassName                = 'LAP-12000';
+    sDeviceName               = 'ATRAD ST80 AmpA';
+    sInitFileName             = 'InitFile_LAP-12000_ATRAD_ST80_AmpA.txt';
+    sHwInterfaceModuleName    = 'MonitorControl_DwellControl_ATRAD_ST80';
+    iWriteErrorLog            = 1;
+    sErrorLogPathAndFileName  = 'D:\LapxmData\Log Files\Monitor_Log.txt';   
+    sOLEID                    = 'Lapxm.Monitor_Generic.1';
+  };
+
+// ******************************************************************
+// Example using NV-7000 serial monitor module
+// ******************************************************************
+
+  Monitor_FinalAmplifier(NULL)
+  {
+    iEnable                   = 1;
+    iUpdateEveryXSecs         = 15;  
+    sMonitoringSystem         = 'LAP-16000';
+    sClassName                = 'LAP-16000';
+    sDeviceName               = 'Final Amp Controller';
+    sInitFileName             = 'InitFile_FinalAmp.txt';
+    sHwInterfaceModuleName    = 'Monitor_HwInterface_NV7000';
+    iWriteErrorLog            = 1;
+    sErrorLogPathAndFileName  = 'D:\LapxmData\Log Files\ERRORLOG.txt'; 
+    sOLEID                    = 'Lapxm.Monitor_Generic.1';
+  };
+
+// ******************************************************************
+// Example using power meter monitor module
+// ******************************************************************
+
+  Monitor_PowerMeter_E4417A(NULL)
+  {
+    iEnable                   = 1;
+    iUpdateEveryXSecs         = 15;  
+    sMonitoringSystem         = 'LAP-16000';
+    sClassName                = 'LAP-16000';
+    sDeviceName               = 'PowerMeter_E4417A';
+    sInitFileName             = 'InitFile_PowerMeter_E4417A.txt';
+    sHwInterfaceModuleName    = 'Monitor_HwInterface_PowerMeter_E4417A';
+    iWriteErrorLog            = 1;
+    sErrorLogPathAndFileName  = 'D:\LapxmData\Log Files\PowerMeter_E4417A.txt';
+    sWriteParamsToRegistry    = 'Pwd Power (TxOn)';   
+    sOLEID                    = 'Lapxm.Monitor_Generic.1';
+  };
+
+
+// 9 ________________________________________________________________
+// ******************************************************************
+// XML Status Module - Creates an XML based file containing the status
+// of the radar.
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.6.2.9.
+// ******************************************************************
+
+  Status_XML(NULL)
+  {
+    iEnable                   = 1;
+    iUpdateEveryXSecs         = 15;  
+    sOutputPath               = 'D:\LapxmData\Status';   
+    sOLEID                    = 'Lapxm.Status_XML.1';
+  };
+
+// Optional parameters with default values.
+
+    iMessageLevel             = 6;
+    sHardLinkPath             = 'D:\LapxmData\XML Files\Status'; 
+
+
+// 10 _______________________________________________________________
+// ******************************************************************
+// WXT Weather Transmitter Interface Module - Enables serial
+// communication between the radar processor and Vaisala WXT510 or
+// WXT520 surface weather station.
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.6.2.10.
+// ******************************************************************
+
+  WXT(NULL)
+  {
+    iEnable               = 1;
+    sComPortName          = 'COM4';
+    iDirectionCorrection  = 0;
+    iRequestIntervalSec   = 60;
+    iWindAveragingTimeSec = 600;
+    iWxtAltitudeM         = 5;
+    sOLEID                = 'Lapxm.Wxt.1';
+  };
+
+
+// 11 _______________________________________________________________
+// ******************************************************************
+// Suspend Transmit Module - Used to suspend RF transmission during 
+// intervals specified in an ephemeris file.
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.6.2.11.
+// ******************************************************************
+
+  DwellControl_SuspendOperations(NULL)
+  {
+    iUseLapxmGPS        = 1;
+    iStartParsingAtLine = 8;
+    iTimePadSecs        = 30;
+    sPathFileName       = 'C:\Program Files\Crada\Lapxm\Config\Ephemeris.txt';
+    sOLEID              = 'Lapxm.DwellControl_SuspendOperations.1';
+  };
+
+
+// 12 _______________________________________________________________
+// ******************************************************************
+// RASS Background Audio Module - Produces a band-limited white noise
+// signal which is used between RASS modes to keep the speaker voice
+// coil warm. This should reduce the occurances of damaging condensation
+// or ice formation on the speaker diaphragm.
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.6.2.12.
+// ******************************************************************
+
+  Background_Audio(NULL)
+  {
+    iEnable         = 1;
+    iVolumePct      = 5;
+    sWaveFileName   = 'BL1-3k.wav';
+    sOLEID          = 'Lapxm.Background_Audio.1';
+  };
+
+
+// 13 _______________________________________________________________
+// ******************************************************************
+// VHF Amplifier Control Communications Module, ATRAD STX - Controls
+// configuration and network communication with the Control and
+// Monitor Modules of STX VHF amplifiers manufactured by ATRAD Pty.
+// which are used in some versions of LAP-12000 profilers.
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.6.2.13.1.
+// ******************************************************************
+
+  MonitorControl_DwellControl_ATRAD_STXX(NULL)
+  {
+    iEnable		= 1;
+    sIPAddresses	= {'172.16.16.0', '172.16.16.1', '172.16.16.2', '172.16.16.3'};
+    sOLEID		= 'Lapxm.Monitor_Atrad_STXX.1';
+  };
+
+
+// ******************************************************************
+// VHF Amplifier Control Communications Module, Tomco - Controls
+// configuration and serial communication with the Transmitter
+// Control and Monitoring Unit of VT40B VHF amplifiers manufactured by
+// Tomco Electronics Pty. which are used in some versions of LAP-12000
+// profilers.
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.6.2.13.2.
+// ******************************************************************
+
+  MonitorControl_DwellControl_TOMCO(NULL)
+  {
+    iEnable                 = 1;
+    iOutputAmplitudePercent = 100;
+    sComPort_Amp1           = 'COM3';
+    sComPort_Amp2           = 'COM4';
+    sMonitoringSystem       = 'LAP-12000';
+    sOLEID                  = 'Lapxm.Monitor_Tomco.1';
+  };
+
+
+// ******************************************************************
+// VHF Amplifier Control Communications Module, ATRAD VTX - Controls
+// configuration and serial communication with the Modulator and
+// Controller Unit of VTX VHF amplifiers manufactured by ATRAD Pty.
+// which are used in some versions of LAP-12000 profilers.
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.6.2.13.3.
+// ******************************************************************
+
+  MonitorControl_DwellControl_ATRAD(NULL)
+  {
+    iEnable                     = 1;
+    sMonitoringSystem           = 'ATRAD';
+    iLongestFaultPresenceSec    = 90;
+    iRecentFaultIntervalSec     = 1800;
+    iTestPulses                 = 0;
+    iTestPulsesOnPause          = 0;
+    iTransmitterWarmupPeriodSec = 300;
+    sComPort                    = 'COM1';
+    iDisableAmp1                = 1;
+    iDisableAmp2                = 1;
+    iDisableAmp3                = 1;
+    iDisableAmp4                = 1;
+    iDisableAmp5                = 1;
+    iDisableAmp6                = 1;
+    sOLEID                      = 'Lapxm.Monitor_Atrad.1';
+  };
+
+
+// 14 _______________________________________________________________
+// ******************************************************************
+// LAP®-3000 Monitor Module - Controls configuration and
+// communication with the obsolete Vaisala 60001035 Profiler Monitor
+// unit and remote monitor.
+// Please refer to the LAP-XM® Software Reference Manual,
+// Section 4.6.2.14.
+// ******************************************************************
+
+  Monitor_Lap3000(NULL)
+  {
+    iEnable                      = 1;
+    sMonitoringSystem            = 'LAP-3000';
+    sComPortName                 = 'COM1';
+    iBaudRate                    = 2400;
+    iParity                      = 0;
+    iDataBits                    = 8;
+    iStopBits                    = 1;
+    iShutDownAmplifierTemp       = 1;
+    iShutDownShelterTemp         = 1;
+    iShutDownReflectedRfPower    = 1;
+    iShutDownUpsFailure          = 1;
+    iUpsLineVoltageThreshold     = 90;
+    iUpsTimeLimit                = 5;
+    iKeepMinuteRecordsForXDays   = 1;
+    iKeepHourlyRecordsforXDays   = 30;
+    iWriteTextErrorLog           = 1;
+    sOLEID                       = 'LAPXM.Monitor_Lap3000.1';
+  };
+
+

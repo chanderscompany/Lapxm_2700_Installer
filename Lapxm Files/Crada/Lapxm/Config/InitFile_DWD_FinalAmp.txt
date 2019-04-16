@@ -1,0 +1,83 @@
+-1
+-1
+-1
+12
+10
+TRA on/off,on/off,0,1,2,0,1,0,0,1.0,1.0,0,0,0,2005,0,0
+TRA RF present (TX On),yes/no,0,1,2,0,2,64,64,1.0,1.0,0,0,0,2006,0,1
+TRA RF present (TX Off),yes/no,0,1,2,0,2,64,0,0.0,0.0,0,0,2006,0,0,1
+TRA RF OK (TX On),yes/no,0,1,2,0,3,64,64,1.0,1.0,0,0,0,2007,0,2
+TRA RF OK (TX Off),yes/no,0,1,2,0,3,64,0,0.0,0.0,0,0,2007,0,0,2
+TRA sum warning,yes/no,0,1,2,0,4,0,0,1.0,0.0,0,0,2008,0,0,3
+TRA sum fault,yes/no,0,1,2,0,5,0,0,1.0,0.0,0,0,2009,0,0,4
+TRA CCU warning,yes/no,0,1,2,0,6,0,0,1.0,0.0,0,0,2010,0,0,5
+TRA CCU fault,yes/no,0,1,2,0,7,0,0,0.0,0.0,0,0,2011,0,0,6
+TRA CCU Remote Mode,yes/no,0,1,2,0,8,0,0,1.0,0.0,0,0,2012,0,0,7
+TRA intake temp,deg C,0,1,2,0,9,0,0,40.0,10.0,0,0,2014,2013,1,3
+TRA no comm,flag,0,1,2,0,10,0,0,0.0,0.0,0,0,2019,0,3,-1
+EndOfFile
+
+NOTES:
+Line 1 = Hardware Address - Usually used to identify a 485 hardware device
+Line 2 = Number of Mux Levels - Max mux level that must be read
+Line 3 = Number of A2d Channels - Max A2d channel that must be read from all mux levels.
+Line 4 = Total number of parameters - This it all parameters including different radar state conditions
+Line 5 = Number or unique parameters - This is only Parameters that have unique names
+Line 6 - X = Information about each parameter in the following order:
+ParameterName,
+Units,
+Bias,
+Scale,
+UnitNumber,
+SubUnitNumber,
+ItemNumber,
+RadarStateMask,
+RadarState,
+HighLimit,
+LowLimt,
+FatalHigh,
+FatalLow,
+ErrorCodeHigh,
+ErrorCodeLow,
+DataType,                // 0 = Integer, 1 = Float, 2 = Bit, 3 = Communication failure flag, 4 = Log Power Formula
+                         // Log Power Formula = ( ( FloatValue * Scale) * (FloatValue * Scale) ) * Bias
+DataIndex,               // Index into MonitorHwInfo structure IntArray, FloatArray or DigitalBits
+                         // RS482 Index = ((MuxLevel*11) + A2D Channel) - Example -> MuxLevel = 3, A2D Channel = 5 Index = (3*11 + 5) = 38
+Line X = 'EndOfFile' - This tells the reader not to read any further.
+
+// The Radar State bit pattern is defined as
+XXXXXXXX | XXXXXXXX | BBBBBBBB | RTxxxOOO
+
+X - Unused
+B - Bits for beam direction (256 possible)
+O - Operational Status      (64 possible) (0 = Unloaded, 1 = Loaded, 2 = Running, 3 = Paused, 4 = Stopped)
+R - RASS ON/OFF state       (2 possible)  (0 = Off, 1 = On)
+T - TX ON/OFF state         (2 possible)  (0 = Off, 1 = On)
+
+// Radar States Masks
+RADARSTATEMASK_TX         0x000000040 - 64
+RADARSTATEMASK_XY         0x000000100 - 256
+RADARSTATEMASK_PLUSDELAY  0x000000200 - 512
+RADARSTATEMASK_MINUSDELAY 0x000000400 - 1024
+RADARSTATEMASK_VERTICAL   0x000000600 - 1536
+RADARSTATEMASK_RASS       0x000000080 - 128
+RADARSTATEMASK_TX_XY      0x000000140 - 320
+ 
+// Radar States
+RADARSTATE_TXON         0x000000040 - 64
+RADARSTATE_TXOFF        0x000000000 - 0
+RADARSTATE_X            0x000000000 - 0
+RADARSTATE_Y            0x000000100 - 256
+RADARSTATE_PLUSDELAY    0x000000200 - 512
+RADARSTATE_NOPLUSDELAY  0x000000000 - 0
+RADARSTATE_MINUSDELAY   0x000000400 - 1024
+RADARSTATE_NOMINUSDELAY 0x000000000 - 0
+RADARSTATE_VERTICAL     0x000000600 - 1536
+RADARSTATE_NOVERTICAL   0x000000000 - 0
+RADARSTATE_RASSON       0x000000080 - 128
+RADARSTATE_RASSOFF      0x000000000 - 0
+RADARSTATE_TXON_X       0x000000040 - 64
+RADARSTATE_TXOFF_X      0x000000000 - 0
+RADARSTATE_TXON_Y       0x000000140 - 320
+RADARSTATE_TXOFF_Y      0x000000100 - 256
+

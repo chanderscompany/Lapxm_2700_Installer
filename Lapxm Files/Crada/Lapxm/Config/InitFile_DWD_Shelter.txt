@@ -1,0 +1,98 @@
+52
+3
+7
+27
+19
+SHE Mon temp,deg C,-2236,0.122,7,0,1,0,0,45.0,10.0,0,0,7001,7000,0,8
+SHE AC in ph1 V,Volt(AC),0,0.0945,7,0,2,0,0,250.0,200.0,0,0,7003,7002,0,0
+SHE AC in ph2 V,Volt(AC),0,0.0945,7,0,3,0,0,250.0,200.0,0,0,7005,7004,0,11
+SHE AC in ph3 V,Volt(AC),0,0.0945,7,0,4,0,0,250.0,200.0,0,0,7007,7006,0,22
+SHE AC in UPS ph1 V,Volt(AC),0,0.0945,7,0,5,0,0,250.0,200.0,0,0,7009,7008,0,33
+SHE AC in UPS ph2 V,Volt(AC),0,0.0945,7,0,6,0,0,250.0,200.0,0,0,7011,7010,0,44
+SHE AC in UPS ph3 V,Volt(AC),0,0.0945,7,0,7,0,0,250.0,200.0,0,0,7013,7012,0,55
+RAS CH1 I (RASS On),Amp(AC),0,0.00112,6,1,8,128,128,3.5,0.2,0,0,6001,6000,0,45
+RAS CH1 I (RASS Off),Amp(AC),0,0.00112,6,1,8,128,0,0.6,0.0,0,0,6001,6000,0,45
+RAS CH2 I (RASS On),Amp(AC),0,0.00112,6,2,9,128,128,3.5,0.2,0,0,6003,6002,0,56
+RAS CH2 I (RASS Off),Amp(AC),0,0.00112,6,2,9,128,0,0.6,0.0,0,0,6003,6002,0,56
+RAS CH3 I (RASS On),Amp(AC),0,0.00112,6,3,10,128,128,3.5,0.2,0,0,6005,6004,0,67
+RAS CH3 I (RASS Off),Amp(AC),0,0.00112,6,3,10,128,0,0.6,0.0,0,0,6005,6004,0,67
+RAS CH4 I (RASS On),Amp(AC),0,0.00112,6,4,11,128,128,3.5,0.2,0,0,6007,6006,0,78
+RAS CH4 I (RASS Off),Amp(AC),0,0.00112,6,4,11,128,0,0.6,0.0,0,0,6007,6006,0,78
+RAS CH1 V (RASS On),Volt(AC),0,0.0111,6,1,12,128,128,24.0,5.0,0,0,6009,6008,0,1
+RAS CH1 V (RASS Off),Volt(AC),0,0.0111,6,1,12,128,0,5.0,0.0,0,0,6009,6008,0,1
+RAS CH2 V (RASS On),Volt(AC),0,0.0111,6,2,13,128,128,24.0,5.0,0,0,6011,6010,0,12
+RAS CH2 V (RASS Off),Volt(AC),0,0.0111,6,2,13,128,0,5.0,0.0,0,0,6011,6010,0,12
+RAS CH3 V (RASS On),Volt(AC),0,0.0111,6,3,14,128,128,24.0,5.0,0,0,6013,6012,0,23
+RAS CH3 V (RASS Off),Volt(AC),0,0.0111,6,3,14,128,0,5.0,0.0,0,0,6013,6012,0,23
+RAS CH4 V (RASS On),Volt(AC),0,0.0111,6,4,15,128,128,24.0,5.0,0,0,6015,6014,0,34
+RAS CH4 V (RASS Off),Volt(AC),0,0.0111,6,4,15,128,0,5.0,0.0,0,0,6015,6014,0,34
+SHE Ant/RASS heat,on/off,0,1,7,0,16,0,0,1,0,0,0,0,0,2,0
+SHE Alarm,on/off,0,1,7,0,17,0,0,1,0,0,0,7014,0,2,1
+SHE Air Conditioner,on/off,0,1,7,0,18,0,0,1,1,0,0,0,0,2,2
+SHE no comm,flag,0,1,7,0,19,0,0,0.0,0.0,0,0,7019,0,3,-1
+EndOfFile
+
+NOTES:
+Line 1 = Hardware Address - Usually used to identify a 485 hardware device
+Line 2 = Number of Mux Levels - Max mux level that must be read
+Line 3 = Number of A2d Channels - Max A2d channel that must be read from all mux levels.
+Line 4 = Total number of parameters - This it all parameters including different radar state conditions
+Line 5 = Number or unique parameters - This is only Parameters that have unique names
+Line 6 - X = Information about each parameter in the following order:
+ParameterName,
+Units,
+Bias,
+Scale,
+UnitNumber,
+SubUnitNumber,
+ItemNumber,
+RadarStateMask,
+RadarState,
+HighLimit,
+LowLimt,
+FatalHigh,
+FatalLow,
+ErrorCodeHigh,
+ErrorCodeLow,
+DataType,                // 0 = Integer, 1 = Float, 2 = Bit, 3 = Communication failure flag, 4 = Log Power Formula
+                         // Log Power Formula = ( ( FloatValue * Scale) * (FloatValue * Scale) ) * Bias
+DataIndex,               // Index into MonitorHwInfo structure IntArray, FloatArray or DigitalBits
+                         // RS482 Index = ((MuxLevel*11) + A2D Channel) - Example -> MuxLevel = 3, A2D Channel = 5 Index = (3*11 + 5) = 38
+Line X = 'EndOfFile' - This tells the reader not to read any further.
+
+// The Radar State bit pattern is defined as
+XXXXXXXX | XXXXXXXX | BBBBBBBB | RTxxxOOO
+
+X - Unused
+B - Bits for beam direction (256 possible)
+O - Operational Status      (64 possible) (0 = Unloaded, 1 = Loaded, 2 = Running, 3 = Paused, 4 = Stopped)
+R - RASS ON/OFF state       (2 possible)  (0 = Off, 1 = On)
+T - TX ON/OFF state         (2 possible)  (0 = Off, 1 = On)
+
+// Radar States Masks
+RADARSTATEMASK_TX         0x000000040 - 64
+RADARSTATEMASK_XY         0x000000100 - 256
+RADARSTATEMASK_PLUSDELAY  0x000000200 - 512
+RADARSTATEMASK_MINUSDELAY 0x000000400 - 1024
+RADARSTATEMASK_VERTICAL   0x000000600 - 1536
+RADARSTATEMASK_RASS       0x000000080 - 128
+RADARSTATEMASK_TX_XY      0x000000140 - 320
+ 
+// Radar States
+RADARSTATE_TXON         0x000000040 - 64
+RADARSTATE_TXOFF        0x000000000 - 0
+RADARSTATE_X            0x000000000 - 0
+RADARSTATE_Y            0x000000100 - 256
+RADARSTATE_PLUSDELAY    0x000000200 - 512
+RADARSTATE_NOPLUSDELAY  0x000000000 - 0
+RADARSTATE_MINUSDELAY   0x000000400 - 1024
+RADARSTATE_NOMINUSDELAY 0x000000000 - 0
+RADARSTATE_VERTICAL     0x000000600 - 1536
+RADARSTATE_NOVERTICAL   0x000000000 - 0
+RADARSTATE_RASSON       0x000000080 - 128
+RADARSTATE_RASSOFF      0x000000000 - 0
+RADARSTATE_TXON_X       0x000000040 - 64
+RADARSTATE_TXOFF_X      0x000000000 - 0
+RADARSTATE_TXON_Y       0x000000140 - 320
+RADARSTATE_TXOFF_Y      0x000000100 - 256
+

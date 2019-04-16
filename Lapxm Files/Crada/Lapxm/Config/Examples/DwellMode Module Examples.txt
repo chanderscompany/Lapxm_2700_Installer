@@ -1,0 +1,224 @@
+// DwellMode Module Examples.txt
+// LAP-XM® 2.6.0.0
+// 25Jun12 CC, JWN, RL
+//
+// ******************************************************************
+// ******************************************************************
+// The following are examples of the dwell parameters used in the 
+// [DWELLMODES] section of a *.cfg file.
+//
+// Please refer to the Section 4.2 of the LAP-XM® Software Reference
+// Manual which describes the configuration file language syntax.
+// 
+// Section 4.3.2 of the LAP-XM® Software Reference Manual provides a
+// detailed description of the dwell parameters. 
+// 
+// Section 4.8 of the LAP-XM® Software Reference Manual provides
+// examples of configuration files for each of the LAP receiver
+// configurations. 
+// ******************************************************************
+// ******************************************************************
+
+// 1 ________________________________________________________________
+// ******************************************************************
+// WIND MODE - LAP® profilers with RVP910 Digital IF)
+//
+// To measure wind vector velocity, the following parameters must be 
+// provided for each mode declared in the [DWELLMODES] section.
+// 
+// Please refer to 4.3.2 of the LAP-XM® Software Reference Manual
+// for detailed descriptions of dwell parameters.
+// 
+// The dwell parameter values shown are examples only. The values
+// must be changed to reflect the hardware and software configuration
+// of your system and to measure the atmospheric conditions aloft.
+// ******************************************************************
+
+  MODENAME = WA
+  {
+    iFirstGateNs      = 3200;
+    iFlip             = 1;
+    iGateSpacingNs    = 400;
+    iIppNs            = 31000;
+    iNCI              = 132;
+    iNCode            = 1;
+    iNhts             = 30;
+    iNpts             = 256;
+    iNSpec            = 24;
+    iPwNs             = 700;
+    iTxOn             = 1;
+    iVertCorrectHw    = 1;
+    iWindDopPtBegin   = 1;
+    iWindDopPtNum     = 256;
+    sOutputTS         = 'TsWA';  
+  }
+
+// Optional parameters with default values
+
+    iAddtoDir         = 0;
+    iNRx              = 1;
+    iNRxMode          = 0;
+    iPwAmpPct         = 100;
+    iRassOn           = 0;
+    iTsDataType       = 1;
+    iTRMode           = 1;
+
+
+// 2 ________________________________________________________________
+// ******************************************************************
+// WIND MODE - LAP® profilers with PIRAQ III Digital IF)
+//
+// To measure wind vector velocity, the following parameters must be 
+// provided for each mode declared in the [DWELLMODES] section.
+// 
+// Please refer to 4.3.2 of the LAP-XM® Software Reference Manual
+// for detailed descriptions of dwell parameters.
+// 
+// The dwell parameter values shown are examples only. The values
+// must be changed to reflect the hardware and software configuration
+// of your system and to measure the atmospheric conditions aloft.
+// ******************************************************************
+
+  MODENAME = WA
+  {
+    iAddtoDir         = 0;
+    iFirstGateNs      = 4500;
+    iFlip             = 1;
+    iGateSpacingNs    = 417;
+    iIppNs            = 56000;
+    iNCI              = 62;
+    iNCode            = 1;
+    iNhts             = 26;
+    iNpts             = 256;
+    iNRx              = 1;
+    iNRxMode          = 0;
+    iNSpec            = 50;
+    iPwNs             = 708;
+    iRassDopPtBegin   = 1;
+    iRassDopPtNum     = 0;
+    iRassOn           = 0;
+    iTxOn             = 1;
+    iVertCorrectHw    = 1;
+    iWindDopPtBegin   = 1;
+    iWindDopPtNum     = 256;
+    sOutputTS         = 'TsWA';  
+  }
+
+
+// 3 ________________________________________________________________
+// ******************************************************************
+// WIND MODE - LAP® profilers with baseband sampled receiver)
+//
+// To measure wind vector velocity, the following parameters must be 
+// provided for each mode declared in the [DWELLMODES] section.
+// 
+// Please refer to 4.3.2 of the LAP-XM® Software Reference Manual
+// for detailed descriptions of dwell parameters.
+//
+// Note that spectral processing, ground clutter reduction and 
+// moments calculation is normally performed in the ISA DSP processor.
+// The Lehmann-Teschke Intermittent Clutter Reduction Module, 
+// Wavelet Time-series Processing Module, Spectral Processing and
+// Averaging Module, Ground Clutter Interference Reduction Module,
+// Moments Module, and Multiple Peak Moments Module in the
+// [PROCESSES] section of the configuration file should not be
+// used with the baseband sampled receiver.
+// 
+// The dwell parameter values shown are examples only. The values
+// must be changed to reflect the hardware and software configuration
+// of your system and to measure the atmospheric conditions aloft.
+// ******************************************************************
+
+  MODENAME = WA
+  {
+    iAddtoDir         = 0;
+    iAtten            = 0;
+    fClutterHeightKm  = 1.2;	
+    iDCFilter         = 1;
+    iDspXferBits      = 32;
+    iFirstGateNs      = 1900;
+    iFlip             = 1;
+    iGateSpacingNs    = 700;
+    iIppNs            = 31000;
+    iNCI              = 176;
+    iNCode            = 1;
+    iNhts             = 20;
+    iNpts             = 128;
+    iNRx              = 1;
+    iNRxMode          = 0;
+    iNSpec            = 32;
+    iPwNs             = 700;
+    iRassDopPtBegin   = 1;
+    iRassDopPtNum     = 0;
+    iRassOn           = 0;
+    iTxOn             = 1;
+    iWindDopPtBegin   = 1;
+    iWindDopPtNum     = 128;
+    iWindow           = 1;
+    sOutputSpecMean   = 'NULL';
+    sOutputMomMean    = 'NULL';
+    sOutputTS         = 'NULL';
+    sOutputSpecICRA   = 'SpecWA';
+    sOutputMomICRA    = 'MomWA';
+  }
+
+
+// 4 ________________________________________________________________
+// ******************************************************************
+// VIRTUAL TEMPERATURE (RASS) MODE - LAP® profilers with Soundblaster
+// sound source
+//
+// To measure virtual temperature using RASS, the following parameters
+// must be provided for a RASS mode declared in the [DWELLMODES]
+// section and the parameter iRassOn must be set to 1.
+//
+// Please refer to 4.3.2 of the LAP-XM® Software Reference Manual
+// for detailed descriptions of dwell parameters.
+//
+// The dwell parameter values shown are examples only. The values
+// must be changed to reflect the hardware and software configuration
+// of your system and to measure the atmospheric conditions aloft.
+// ******************************************************************
+
+    iRassDopPtBegin      = 160;
+    iRassDopPtNum        = 75;
+    iRassRampTimeMs      = 3000;    
+    iRassSrcFreqBeginHz  = 1026;    
+    iRassSrcFreqEndHz    = 1113;
+    iRassSrcFreqStepmHz  = 1000;
+    iRassSrcFreqDwellMs  = 50;
+    sRassSrcMode         = 'random';
+
+
+// Optional Parameters with default values
+
+    iRassSrcFreqStepHz   = 0;
+    iRassVolumePct       = 100;
+
+
+// 5 ________________________________________________________________
+// ******************************************************************
+// VIRTUAL TEMPERATURE (RASS) MODE - LAP® profilers with ISA DSP-32
+// sound source
+//
+// To measure virtual temperature using RASS, the following parameters
+// must be provided for a RASS mode declared in the [DWELLMODES]
+// section and the parameter iRassOn must be set to 1.
+//
+// Please refer to 4.3.2 of the LAP-XM® Software Reference Manual
+// for detailed descriptions of dwell parameters.
+//
+// The dwell parameter values shown are examples only. The values
+// must be changed to reflect the hardware and software configuration
+// of your system and to measure the atmospheric conditions aloft.
+// ******************************************************************
+
+    iRassDopPtBegin      = 160;
+    iRassDopPtNum        = 75;
+    iRassRampTimeMs      = 3000;    
+    iRassSrcFreqBeginHz  = 1026;    
+    iRassSrcFreqEndHz    = 1113;
+    iRassSrcFreqStepHz   = 1;
+    iRassSrcFreqDwellMs  = 50;
+    sRassSrcMode         = 'random';
+
